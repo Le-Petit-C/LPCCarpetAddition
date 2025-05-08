@@ -1,4 +1,4 @@
-package com.example;
+package lpcCarpetAddition;
 
 import net.fabricmc.api.ClientModInitializer;
 

@@ -1,31 +1,31 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "lpccarpetaddition",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "LPC Carpet Addition",
+	"description": "Carpet addition by Le_Petit_C",
 	"authors": [
-		"Me!"
+		"Le_Petit_C"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/Le-Petit-C",
+		"sources": "https://github.com/Le-Petit-C/LPCCarpetAddition"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"license": "LGPL3",
+	"icon": "assets/lpcCarpetAddition/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+          "lpcCarpetAddition.ExampleMod"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"lpcCarpetAddition.ExampleModClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"lpcCarpetAddition.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "lpcCarpetAddition.client.mixins.json",
 			"environment": "client"
 		}
 	],

@@ -16,7 +16,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "lpcCarpetAddition.ExampleMod"
+          "lpcCarpetAddition.LPCCarpetAddition"
 		],
 		"client": [
 			"lpcCarpetAddition.ExampleModClient"

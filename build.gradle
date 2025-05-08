@@ -25,12 +25,12 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"modid" {
+		"lpcCarpetAddition" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
 	}
-
+	accessWidenerPath = file("src/main/resources/lpcCarpetAddition.accesswidener")
 }
 
 dependencies {

@@ -3,7 +3,7 @@
 	"package": "lpcCarpetAddition.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-      "ExampleMixin"
+		"EnderPearlEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

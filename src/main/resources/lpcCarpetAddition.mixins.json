@@ -3,7 +3,10 @@
   "package": "lpcCarpetAddition.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AnvilScreenHandlerMixin",
     "ComparatorBlockMixin",
+    "EnchantmentDefinitionMixin",
+    "EnchantmentHelperMixin",
     "EnderPearlEntityMixin",
     "ItemFrameEntityMixin"
   ],

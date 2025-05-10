@@ -2,5 +2,9 @@
   "carpet.rule.comparatorGetsRealTime.name": "Comparator Retrieves UTC Time",
   "carpet.rule.comparatorGetsRealTime.desc": "When enabled, comparators can obtain hexadecimal digits (corresponding to seconds) of UTC time from clock-containing item frames, determined by the clock's rotation angle",
   "carpet.rule.comparatorGetsRealTimeHigh32BlockId.name": "Comparator Retrieves UTC Time High 32-bit Block",
-  "carpet.rule.comparatorGetsRealTimeHigh32BlockId.desc": "When UTC time retrieval is enabled, comparators will obtain corresponding hexadecimal digits from the high 32 bits of UTC time when detecting clock item frames through this specific block type"
+  "carpet.rule.comparatorGetsRealTimeHigh32BlockId.desc": "When UTC time retrieval is enabled, comparators will obtain corresponding hexadecimal digits from the high 32 bits of UTC time when detecting clock item frames through this specific block type",
+  "carpet.rule.relimitedEnchantments.name": "Relimited enchantments",
+  "carpet.rule.relimitedEnchantments.desc": "Reset max level of chosen enchantments",
+  "carpet.rule.disableAnvilPunishment.name": "Disable anvil punishment",
+  "carpet.rule.disableAnvilPunishment.desc": "Disable anvil punishment"
 }

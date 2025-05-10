@@ -2,5 +2,9 @@
   "carpet.rule.comparatorGetsRealTime.name": "比较器获取UTC时间",
   "carpet.rule.comparatorGetsRealTime.desc": "开启后可以用比较器从放着钟的物品展示框中获取精确到秒的UTC时间的对应16进制位（以钟的旋转角度为准）",
   "carpet.rule.comparatorGetsRealTimeHigh32BlockId.name": "比较器获取UTC时间高32位方块",
-  "carpet.rule.comparatorGetsRealTimeHigh32BlockId.desc": "开启比较器获取UTC时间后如果比较器是隔着这个方块检测放着钟物品展示框的话获取到的是高32位中的对应16进制位"
+  "carpet.rule.comparatorGetsRealTimeHigh32BlockId.desc": "开启比较器获取UTC时间后如果比较器是隔着这个方块检测放着钟物品展示框的话获取到的是高32位中的对应16进制位",
+  "carpet.rule.relimitedEnchantments.name": "重设附魔上限",
+  "carpet.rule.relimitedEnchantments.desc": "重新设置选择的附魔上限等级",
+  "carpet.rule.disableAnvilPunishment.name": "禁用铁砧惩罚",
+  "carpet.rule.disableAnvilPunishment.desc": "禁用铁砧惩罚"
 }

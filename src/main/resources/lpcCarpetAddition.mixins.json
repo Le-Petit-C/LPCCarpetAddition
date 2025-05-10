@@ -1,11 +1,13 @@
 {
-	"required": true,
-	"package": "lpcCarpetAddition.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"EnderPearlEntityMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "lpcCarpetAddition.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ComparatorBlockMixin",
+    "EnderPearlEntityMixin",
+    "ItemFrameEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

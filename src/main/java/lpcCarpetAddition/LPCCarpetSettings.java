@@ -25,4 +25,6 @@ public class LPCCarpetSettings {
     public static @NotNull String relimitedEnchantments = "";
     @Rule(categories = {RuleCategory.FEATURE})
     public static boolean disableAnvilPunishment;
+    @Rule(categories = {RuleCategory.BUGFIX})
+    public static boolean fakePlayerExperienceDuplicationFix;
 }

@@ -6,5 +6,7 @@
   "carpet.rule.relimitedEnchantments.name": "Relimited enchantments",
   "carpet.rule.relimitedEnchantments.desc": "Reset max level of chosen enchantments",
   "carpet.rule.disableAnvilPunishment.name": "Disable anvil punishment",
-  "carpet.rule.disableAnvilPunishment.desc": "Disable anvil punishment"
+  "carpet.rule.disableAnvilPunishment.desc": "Disable anvil punishment",
+  "carpet.rule.fakePlayerExperienceDuplicationFix.name": "Fake Player Experience Duplication Fix",
+  "carpet.rule.fakePlayerExperienceDuplicationFix.desc": "Fixes the issue where Carpet mod's fake players do not clear experience points upon death. This rule addresses the experience duplication exploit."
 }

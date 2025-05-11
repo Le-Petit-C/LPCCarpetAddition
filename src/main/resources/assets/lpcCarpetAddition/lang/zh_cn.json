@@ -6,5 +6,7 @@
   "carpet.rule.relimitedEnchantments.name": "重设附魔上限",
   "carpet.rule.relimitedEnchantments.desc": "重新设置选择的附魔上限等级",
   "carpet.rule.disableAnvilPunishment.name": "禁用铁砧惩罚",
-  "carpet.rule.disableAnvilPunishment.desc": "禁用铁砧惩罚"
+  "carpet.rule.disableAnvilPunishment.desc": "禁用铁砧惩罚",
+  "carpet.rule.fakePlayerExperienceDuplicationFix.name": "假人刷经验修复",
+  "carpet.rule.fakePlayerExperienceDuplicationFix.desc": "carpet的假人死后不会清空经验值，这个功能是对此的修复"
 }

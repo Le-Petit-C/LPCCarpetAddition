@@ -8,5 +8,7 @@
   "carpet.rule.disableAnvilPunishment.name": "禁用铁砧惩罚",
   "carpet.rule.disableAnvilPunishment.desc": "禁用铁砧惩罚",
   "carpet.rule.fakePlayerExperienceDuplicationFix.name": "假人刷经验修复",
-  "carpet.rule.fakePlayerExperienceDuplicationFix.desc": "carpet的假人死后不会清空经验值，这个功能是对此的修复"
+  "carpet.rule.fakePlayerExperienceDuplicationFix.desc": "carpet的假人死后不会清空经验值，这个功能是对此的修复",
+  "carpet.rule.survivalAnvilLimit.name": "修改生存模式铁砧上限",
+  "carpet.rule.survivalAnvilLimit.desc": "修改生存模式中铁砧“过于昂贵”的限制，如果设为负数表示完全解除限制"
 }

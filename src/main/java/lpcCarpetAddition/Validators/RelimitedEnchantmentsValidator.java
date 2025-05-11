@@ -40,10 +40,7 @@ public class RelimitedEnchantmentsValidator extends Validator<String> {
         }
     }
     @Override public String validate(@Nullable ServerCommandSource source, CarpetRule<String> changingRule, String newValue, String userInput) {
-        if (source != null) {
-            applyEnchantmentSettings(source.getServer(), newValue);
-            return newValue;
-        }
-        else return null;
+        if (source != null) applyEnchantmentSettings(source.getServer(), newValue);
+        return newValue;
     }
 }

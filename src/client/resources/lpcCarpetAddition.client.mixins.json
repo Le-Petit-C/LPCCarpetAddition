@@ -3,7 +3,7 @@
 	"package": "lpcCarpetAddition.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin"
+      "AnvilScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

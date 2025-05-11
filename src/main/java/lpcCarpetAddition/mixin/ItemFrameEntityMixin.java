@@ -1,6 +1,7 @@
 package lpcCarpetAddition.mixin;
 
 import lpcCarpetAddition.LPCCarpetSettings;
+import lpcCarpetAddition.LPCCarpetSettingsData;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.item.Items;
@@ -19,7 +20,7 @@ public class ItemFrameEntityMixin {
         if(getThis().getHeldItemStack().getItem() != Items.CLOCK) return;
         long sec = System.currentTimeMillis() / 1000;
         BlockState thisBlock = getThis().getWorld().getBlockState(getThis().getAttachedBlockPos().offset(getThis().getFacing().getOpposite()));
-        boolean isHigh32 = thisBlock.getBlock() == LPCCarpetSettings.comparatorGetsRealTimeHigh32Block;
+        boolean isHigh32 = thisBlock.getBlock() == LPCCarpetSettingsData.comparatorGetsRealTimeHigh32Block;
         int ret = (int) (((isHigh32 ? sec >> 32 : sec) >> (getThis().getRotation() << 2)) & 15);
         cir.setReturnValue(ret);
     }

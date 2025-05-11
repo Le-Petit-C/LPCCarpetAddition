@@ -2,6 +2,7 @@ package lpcCarpetAddition;
 
 import carpet.api.settings.Rule;
 import carpet.api.settings.RuleCategory;
+import lpcCarpetAddition.Validators.RelimitedEnchantmentsValidator;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +21,7 @@ public class LPCCarpetSettings {
                     + "minecraft:projectile_protection,10;"
                     + "minecraft:feather_falling,7;"
                     + "minecraft:unbreaking";
-    @Rule(categories = {RuleCategory.FEATURE}, strict = false, options = {"", enchantmentString})
+    @Rule(categories = {RuleCategory.FEATURE}, strict = false, options = {"", enchantmentString}, validators = {RelimitedEnchantmentsValidator.class})
     public static @NotNull String relimitedEnchantments = "";
     @Rule(categories = {RuleCategory.FEATURE})
     public static boolean disableAnvilPunishment;

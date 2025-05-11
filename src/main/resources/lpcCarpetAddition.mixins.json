@@ -5,8 +5,8 @@
   "mixins": [
     "AnvilScreenHandlerMixin",
     "ComparatorBlockMixin",
+    "EnchantCommandMixin",
     "EnchantmentDefinitionMixin",
-    "EnchantmentHelperMixin",
     "EnderPearlEntityMixin",
     "ItemFrameEntityMixin"
   ],

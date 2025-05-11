@@ -2,16 +2,24 @@ package lpcCarpetAddition.mixin;
 
 import lpcCarpetAddition.mixinInterfaces.IEnchantmentDefinitionMixin;
 import net.minecraft.enchantment.Enchantment;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Enchantment.Definition.class)
 public class EnchantmentDefinitionMixin implements IEnchantmentDefinitionMixin {
-    @Mutable @Final @Shadow
+    @Final @Shadow
     private int maxLevel;
-    @Override public void lPCCarpetAddition$setMaxLevel(int level) {
-        maxLevel = level;
+    @Unique int mutableMaxLevel;
+    @Override public void lPCCarpetAddition$setMutableMaxLevel(int level) {
+        mutableMaxLevel = level;
+    }
+    @Override public int lPCCarpetAddition$getMutableMaxLevel() {
+        return mutableMaxLevel;
+    }
+    @Inject(method = "<init>", at = @At("RETURN"))
+    void initMixin(CallbackInfo ci){
+        mutableMaxLevel = maxLevel;
     }
 }

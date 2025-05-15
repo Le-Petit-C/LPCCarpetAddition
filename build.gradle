@@ -30,7 +30,7 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
-	accessWidenerPath = file("src/main/resources/lpcCarpetAddition.accesswidener")
+	accessWidenerPath = file("src/main/resources/lpccarpetaddition.accesswidener")
 }
 
 dependencies {

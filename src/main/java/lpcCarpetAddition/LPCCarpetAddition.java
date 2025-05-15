@@ -4,10 +4,12 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import lpcCarpetAddition.commands.EnchantmentCommand;
 import lpcCarpetAddition.loggers.EnderPearlLogger;
 import lpcCarpetAddition.loggers.LPCStandardLogger;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,7 @@ public class LPCCarpetAddition implements ModInitializer, CarpetExtension {
 	@Override public void onInitialize() {
 		LOGGER.info("Start initializing...");
 		CarpetServer.manageExtension(this);
+		CommandRegistrationCallback.EVENT.register(EnchantmentCommand.getInstance());
 		LOGGER.info("Initialized.");
 	}
 
@@ -44,7 +47,7 @@ public class LPCCarpetAddition implements ModInitializer, CarpetExtension {
 
 	@Override
 	public Map<String, String> canHasTranslations(String lang){
-		InputStream langFile = LPCCarpetAddition.class.getClassLoader().getResourceAsStream("assets/lpcCarpetAddition/lang/%s.json".formatted(lang));
+		InputStream langFile = LPCCarpetAddition.class.getClassLoader().getResourceAsStream("assets/lpccarpetaddition/lang/%s.json".formatted(lang));
 		if (langFile == null) return Collections.emptyMap();
 		String jsonData;
 		try {

@@ -43,7 +43,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	//Carpet
-	modImplementation "carpet:fabric-carpet:${project.minecraft_version}-${project.carpet_version}"
+	modImplementation "carpet:fabric-carpet:${project.carpet_version}"
 	
 }
 

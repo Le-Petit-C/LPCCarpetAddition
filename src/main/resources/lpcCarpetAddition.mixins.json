@@ -9,7 +9,8 @@
     "EnchantmentDefinitionMixin",
     "EnderPearlEntityMixin",
     "EntityPlayerMPFakeMixin",
-    "ItemFrameEntityMixin"
+    "ItemFrameEntityMixin",
+    "ModifyUnbreakingFunctionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -44,6 +44,7 @@ dependencies {
 
 	//Carpet
 	modImplementation "carpet:fabric-carpet:${project.carpet_version}"
+	implementation 'org.jetbrains:annotations:24.0.0'
 	
 }
 

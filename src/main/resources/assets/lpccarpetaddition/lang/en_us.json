@@ -10,5 +10,7 @@
   "carpet.rule.fakePlayerExperienceDuplicationFix.name": "Fake Player Experience Duplication Fix",
   "carpet.rule.fakePlayerExperienceDuplicationFix.desc": "Fixes the issue where Carpet mod's fake players do not clear experience points upon death. This rule addresses the experience duplication exploit.",
   "carpet.rule.survivalAnvilLimit.name": "Survival Anvil Limit",
-  "carpet.rule.survivalAnvilLimit.desc": "Modify anvil \"Too Expensive\" limit in survival, set as negative value to unlock all limit"
+  "carpet.rule.survivalAnvilLimit.desc": "Modify anvil \"Too Expensive\" limit in survival, set as negative value to unlock all limit",
+  "carpet.rule.modifyUnbreakingFunction.name": "Modify Unbreaking Function",
+  "carpet.rule.modifyUnbreakingFunction.desc": "Modify Unbreaking enchantment function magnification from \"n + 1\" to \"n + 1 + n(n-1)(n-2)(n-3) / 24\""
 }

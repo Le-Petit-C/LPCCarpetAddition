@@ -18,4 +18,6 @@ public class LPCCarpetSettings {
     public static boolean fakePlayerExperienceDuplicationFix;
     @Rule(categories = {FEATURE}, options = {"-1", "40"}, strict = false)
     public static int survivalAnvilLimit = 40;
+    @Rule(categories = {FEATURE})
+    public static boolean modifyUnbreakingFunction = false;
 }

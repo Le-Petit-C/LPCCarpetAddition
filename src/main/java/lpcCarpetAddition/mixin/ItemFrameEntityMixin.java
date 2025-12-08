@@ -19,7 +19,7 @@ public class ItemFrameEntityMixin {
         if(!LPCCarpetSettings.comparatorGetsRealTime) return;
         if(getThis().getHeldItemStack().getItem() != Items.CLOCK) return;
         long sec = System.currentTimeMillis() / 1000;
-        BlockState thisBlock = getThis().getWorld().getBlockState(getThis().getAttachedBlockPos().offset(getThis().getFacing().getOpposite()));
+        BlockState thisBlock = getThis().getEntityWorld().getBlockState(getThis().getAttachedBlockPos().offset(getThis().getFacing().getOpposite()));
         boolean isHigh32 = thisBlock.getBlock() == LPCCarpetSettingsData.comparatorGetsRealTimeHigh32Block;
         int ret = (int) (((isHigh32 ? sec >> 32 : sec) >> (getThis().getRotation() << 2)) & 15);
         cir.setReturnValue(ret);

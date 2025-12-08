@@ -17,14 +17,13 @@ public abstract class EnderPearlEntityMixin{
 	@Inject(method = "onRemove", at = @At("RETURN"))
 	void onPearlRemove(Entity.RemovalReason reason, CallbackInfo ci){
 		if(!EnderPearlLogger.isEnabled) return;
-		if(getThis().getServer() == null) return;
-		if(getThis().getWorld().isClient) return;
+		if(getThis().getEntityWorld().isClient()) return;
 		Entity owner = getThis().getOwner();
 		TextEx dataText = TextEx.of("");
 		if(owner != null) dataText.append("Pearl by ").append(TextEx.of(owner.getName()).hoverEntity(owner)).append(" : ");
 		Text[] texts = new Text[]{
-				TextEx.of("tick : ").append(TextEx.of(getThis().getWorld().getTime()).setColor(0xFFAA00)),
-				dataText.appendPos(getThis().getPos())
+				TextEx.of("tick : ").append(TextEx.of(getThis().getEntityWorld().getTime()).setColor(0xFFAA00)),
+				dataText.appendPos(getThis().getEntityPos())
 		};
 		EnderPearlLogger.getInstance().log((playerOption, player)->{
 			if(!player.equals(getThis().getOwner())) return null;

@@ -8,16 +8,19 @@ import static carpet.api.settings.RuleCategory.*;
 import static lpcCarpetAddition.LPCCarpetSettingsData.*;
 
 public class LPCCarpetSettings {
-    @Rule(categories = {FEATURE})
+    public static final String LPC = "lpc";
+    @Rule(categories = {FEATURE, LPC})
     public static boolean comparatorGetsRealTime = false;
-    @Rule(categories = {FEATURE}, strict = false, options = {"", enchantmentString}, validators = {RelimitedEnchantmentsValidator.class})
+    @Rule(categories = {FEATURE, LPC}, strict = false, options = {"", enchantmentString}, validators = {RelimitedEnchantmentsValidator.class})
     public static @NotNull String relimitedEnchantments = "";
-    @Rule(categories = {FEATURE})
+    @Rule(categories = {FEATURE, LPC})
     public static boolean disableAnvilPunishment;
-    @Rule(categories = {BUGFIX})
+    @Rule(categories = {BUGFIX, LPC})
     public static boolean fakePlayerExperienceDuplicationFix;
-    @Rule(categories = {FEATURE}, options = {"-1", "40"}, strict = false)
+    @Rule(categories = {FEATURE, LPC}, options = {"-1", "40"}, strict = false)
     public static int survivalAnvilLimit = 40;
-    @Rule(categories = {FEATURE})
+    @Rule(categories = {FEATURE, LPC})
     public static boolean modifyUnbreakingFunction = false;
+    @Rule(categories = {COMMAND, LPC})
+    public static boolean commandHead = false;
 }

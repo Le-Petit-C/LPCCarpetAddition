@@ -4,7 +4,7 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import lpcCarpetAddition.commands.EnchantmentCommand;
+import lpcCarpetAddition.commands.HeadCommand;
 import lpcCarpetAddition.loggers.EnderPearlLogger;
 import lpcCarpetAddition.loggers.LPCStandardLogger;
 import net.fabricmc.api.ModInitializer;
@@ -32,7 +32,8 @@ public class LPCCarpetAddition implements ModInitializer, CarpetExtension {
 	@Override public void onInitialize() {
 		LOGGER.info("Start initializing...");
 		CarpetServer.manageExtension(this);
-		CommandRegistrationCallback.EVENT.register(EnchantmentCommand.getInstance());
+		// CommandRegistrationCallback.EVENT.register(EnchantmentCommand.getInstance());
+		CommandRegistrationCallback.EVENT.register(HeadCommand.getInstance());
 		LOGGER.info("Initialized.");
 	}
 

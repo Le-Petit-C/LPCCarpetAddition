@@ -13,7 +13,9 @@ import org.jetbrains.annotations.NotNull;
 import static lpcCarpetAddition.Utils.CommandUtils.*;
 import static lpcCarpetAddition.Utils.DataUtils.*;
 
+@Deprecated
 public class EnchantmentCommand implements CommandRegistrationCallback {
+    @Deprecated
     public static EnchantmentCommand getInstance(){return instance;}
     @Override public void register(CommandDispatcher<ServerCommandSource> commandDispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
         commandDispatcher.register(enchantmentCommandBuilder);
@@ -29,14 +31,14 @@ public class EnchantmentCommand implements CommandRegistrationCallback {
     private static @NotNull LiteralArgumentBuilder<ServerCommandSource> buildEnchantmentLimitCommand(){
         LiteralArgumentBuilder<ServerCommandSource> result = CommandManager.literal("limit");
         result.then(
-                CommandManager.argument(argumentEnchantmentId, StringArgumentType.greedyString())
-                        .suggests(enchantmentSuggester)
-                        .executes(context -> {
-                            EnchantmentRecord enchantment = getEnchantment(context, argumentEnchantmentId);
-                            for(ServerPlayerEntity player : context.getSource().getServer().getPlayerManager().getPlayerList())
-                                player.sendMessage(enchantment.enchantment().description());
-                            return 1;
-                        })
+            CommandManager.argument(argumentEnchantmentId, StringArgumentType.greedyString())
+                .suggests(enchantmentSuggester)
+                .executes(context -> {
+                    EnchantmentRecord enchantment = getEnchantment(context, argumentEnchantmentId);
+                    for(ServerPlayerEntity player : context.getSource().getServer().getPlayerManager().getPlayerList())
+                        player.sendMessage(enchantment.enchantment().description());
+                    return 1;
+                })
         );
         return result;
     }

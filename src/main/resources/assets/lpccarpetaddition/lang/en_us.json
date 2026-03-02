@@ -12,5 +12,8 @@
   "carpet.rule.survivalAnvilLimit.name": "Survival Anvil Limit",
   "carpet.rule.survivalAnvilLimit.desc": "Modify anvil \"Too Expensive\" limit in survival, set as negative value to unlock all limit",
   "carpet.rule.modifyUnbreakingFunction.name": "Modify Unbreaking Function",
-  "carpet.rule.modifyUnbreakingFunction.desc": "Modify Unbreaking enchantment function magnification from \"n + 1\" to \"n + 1 + n(n-1)(n-2)(n-3) / 24\""
+  "carpet.rule.modifyUnbreakingFunction.desc": "Modify Unbreaking enchantment function magnification from \"n + 1\" to \"n + 1 + n(n-1)(n-2)(n-3) / 24\"",
+  "carpet.rule.commandHead.name": "Head Command Switch","carpet.rule.commandHead.desc": "When enabled, allows non-operator players to use /head command (to obtain their own player head)\n/head command usage:\n• When holding a blank skull: Converts it to your player head\n• When holding your player head: Converts it back to a blank skull\n• Other cases: Returns an error",
+  "carpet.lpc.commandHead.fail.notPlayerHead" : "Not player head in your main hand",
+  "carpet.lpc.commandHead.fail.notBlankOrYourHead" : "Not blank player head or your head in your main hand"
 }

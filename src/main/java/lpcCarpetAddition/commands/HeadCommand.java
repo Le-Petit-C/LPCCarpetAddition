@@ -8,6 +8,7 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import lpcCarpetAddition.LPCCarpetSettings;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.CommandRegistryAccess;
+import net.minecraft.command.DefaultPermissions;
 import net.minecraft.component.ComponentChanges;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
@@ -18,20 +19,21 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 public class HeadCommand implements CommandRegistrationCallback {
     private static Text fixTranslatedText(String translationKey) { return Text.literal(Translations.tr(translationKey)); }
     private static final DynamicCommandExceptionType FAILED_NOT_PLAYER_HEAD = new DynamicCommandExceptionType(ignored -> fixTranslatedText("carpet.lpc.commandHead.fail.notPlayerHead"));
     private static final DynamicCommandExceptionType FAILED_NOT_BLANK_OR_YOUR = new DynamicCommandExceptionType(ignored -> fixTranslatedText("carpet.lpc.commandHead.fail.notBlankOrYourHead"));
     public static HeadCommand getInstance(){return instance;}
-    @Override public void register(CommandDispatcher<ServerCommandSource> commandDispatcher, CommandRegistryAccess commandRegistryAccess, CommandManager.RegistrationEnvironment registrationEnvironment) {
+    @Override public void register(CommandDispatcher<ServerCommandSource> commandDispatcher, @NonNull CommandRegistryAccess commandRegistryAccess, CommandManager.@NonNull RegistrationEnvironment registrationEnvironment) {
         commandDispatcher.register(enchantmentCommandBuilder);
     }
     private static final HeadCommand instance = new HeadCommand();
     private static final @NotNull LiteralArgumentBuilder<ServerCommandSource> enchantmentCommandBuilder = buildEnchantmentCommand();
     private static @NotNull LiteralArgumentBuilder<ServerCommandSource> buildEnchantmentCommand(){
         LiteralArgumentBuilder<ServerCommandSource> result = CommandManager.literal("head");
-        result.requires(source -> source.hasPermissionLevel(2) || LPCCarpetSettings.commandHead);
+        result.requires(source -> source.getPermissions().hasPermission(DefaultPermissions.GAMEMASTERS) || LPCCarpetSettings.commandHead);
         result.executes(context -> giveHead(context.getSource()));
         return result;
     }

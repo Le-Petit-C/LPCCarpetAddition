@@ -4,6 +4,7 @@ import lpcCarpetAddition.Utils.TextEx;
 import lpcCarpetAddition.loggers.EnderPearlLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -19,11 +20,11 @@ public abstract class EnderPearlEntityMixin{
 		if(!EnderPearlLogger.isEnabled) return;
 		if(getThis().getEntityWorld().isClient()) return;
 		Entity owner = getThis().getOwner();
-		TextEx dataText = TextEx.of("");
-		if(owner != null) dataText.append("Pearl by ").append(TextEx.of(owner.getName()).hoverEntity(owner)).append(" : ");
+		MutableText dataText = Text.literal("");
+		if(owner != null) dataText.append("Pearl by ").append(TextEx.hoverEntity(Text.literal(owner.getName().getString()), owner)).append(" : ");
 		Text[] texts = new Text[]{
-				TextEx.of("tick : ").append(TextEx.of(getThis().getEntityWorld().getTime()).setColor(0xFFAA00)),
-				dataText.appendPos(getThis().getEntityPos())
+			TextEx.setColor(Text.literal("tick : ").append(Text.of(String.valueOf(getThis().getEntityWorld().getTime()))), 0xFFAA00),
+			TextEx.appendPos(dataText, getThis().getEntityPos())
 		};
 		EnderPearlLogger.getInstance().log((playerOption, player)->{
 			if(!player.equals(getThis().getOwner())) return null;

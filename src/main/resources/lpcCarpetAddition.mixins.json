@@ -10,7 +10,8 @@
 		"EnderPearlEntityMixin",
 		"EntityPlayerMPFakeMixin",
 		"ItemFrameEntityMixin",
-		"ModifyUnbreakingFunctionMixin"
+		"ModifyUnbreakingFunctionMixin",
+		"furnaceClear.FurnaceBlockEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

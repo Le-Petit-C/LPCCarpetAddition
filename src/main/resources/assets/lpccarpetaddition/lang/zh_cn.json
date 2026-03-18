@@ -15,6 +15,10 @@
 	"carpet.rule.modifyUnbreakingFunction.desc": "将耐久附魔导致的工具等效耐久倍率从\"n + 1\"修改为\"n + 1 + n(n-1)(n-2)(n-3) / 24\"",
 	"carpet.rule.commandHead.name": "head指令开关",
 	"carpet.rule.commandHead.desc": "开启后允许非op玩家使用head指令(获取自己的头)\n/head指令介绍：\n• 当手上拿着白板头颅时将其转化为自己的头颅\n• 当手上拿着自己的头颅时将其转化为白板头颅\n• 其他时候报错",
+	"carpet.rule.furnaceClear.name": "熔炉清理",
+	"carpet.rule.furnaceClear.desc": "启用后，当熔炉输入槽被堵塞时自动处理物品",
+	"carpet.rule.furnaceClearMode.name": "处理模式",
+	"carpet.rule.furnaceClearMode.desc": "选择熔炉输入处理的具体方式：\n• direct_destroy: 立即销毁输入物品\n• direct_pass: 立即移至输出槽\n• smelt_destroy: 熔炼完成后销毁\n• smelt_pass: 熔炼完成后移至输出槽",
 	"carpet.lpc.commandHead.fail.notPlayerHead": "主手上没有玩家头颅",
 	"carpet.lpc.commandHead.fail.notBlankOrYourHead": "主手上不是白板头颅或你自己的头颅"
 }

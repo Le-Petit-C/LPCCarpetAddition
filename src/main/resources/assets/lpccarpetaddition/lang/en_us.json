@@ -13,7 +13,12 @@
   "carpet.rule.survivalAnvilLimit.desc": "Modify anvil \"Too Expensive\" limit in survival, set as negative value to unlock all limit",
   "carpet.rule.modifyUnbreakingFunction.name": "Modify Unbreaking Function",
   "carpet.rule.modifyUnbreakingFunction.desc": "Modify Unbreaking enchantment function magnification from \"n + 1\" to \"n + 1 + n(n-1)(n-2)(n-3) / 24\"",
-  "carpet.rule.commandHead.name": "Head Command Switch","carpet.rule.commandHead.desc": "When enabled, allows non-operator players to use /head command (to obtain their own player head)\n/head command usage:\n• When holding a blank skull: Converts it to your player head\n• When holding your player head: Converts it back to a blank skull\n• Other cases: Returns an error",
+  "carpet.rule.commandHead.name": "Head Command Switch",
+  "carpet.rule.commandHead.desc": "When enabled, allows non-operator players to use /head command (to obtain their own player head)\n/head command usage:\n• When holding a blank skull: Converts it to your player head\n• When holding your player head: Converts it back to a blank skull\n• Other cases: Returns an error",
+  "carpet.rule.furnaceClear.name": "Furnace Cleaner",
+  "carpet.rule.furnaceClear.desc": "When enabled, automatically processes items when the furnace input slot is clogged",
+  "carpet.rule.furnaceClearMode.name": "Processing Mode",
+  "carpet.rule.furnaceClearMode.desc": "Select how to handle furnace input:\n• direct_destroy: Destroy input items immediately\n• direct_pass: Pass items to output slot immediately\n• smelt_destroy: Destroy after normal smelting cycle\n• smelt_pass: Pass to output after normal smelting cycle",
   "carpet.lpc.commandHead.fail.notPlayerHead" : "Not player head in your main hand",
   "carpet.lpc.commandHead.fail.notBlankOrYourHead" : "Not blank player head or your head in your main hand"
 }

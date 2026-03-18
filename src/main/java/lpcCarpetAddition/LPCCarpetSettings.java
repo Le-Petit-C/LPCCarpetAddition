@@ -2,6 +2,7 @@ package lpcCarpetAddition;
 
 import carpet.api.settings.Rule;
 import lpcCarpetAddition.Validators.RelimitedEnchantmentsValidator;
+import lpcCarpetAddition.features.furnaceClear.FurnaceClearMode;
 import org.jetbrains.annotations.NotNull;
 
 import static carpet.api.settings.RuleCategory.*;
@@ -23,4 +24,8 @@ public class LPCCarpetSettings {
     public static boolean modifyUnbreakingFunction = false;
     @Rule(categories = {COMMAND, LPC})
     public static boolean commandHead = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean furnaceClear = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static FurnaceClearMode furnaceClearMode = FurnaceClearMode.SMELT_PASS;
 }

@@ -1,4 +1,4 @@
-package lpcCarpetAddition.Utils;
+package lpcCarpetAddition.utils;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.text.*;
@@ -6,7 +6,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
-import static lpcCarpetAddition.Utils.DataUtils.*;
+import static lpcCarpetAddition.utils.DataUtils.*;
 
 @SuppressWarnings("unused")
 public class TextEx {

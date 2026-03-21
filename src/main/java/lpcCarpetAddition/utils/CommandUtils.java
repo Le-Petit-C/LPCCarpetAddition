@@ -1,4 +1,4 @@
-package lpcCarpetAddition.Utils;
+package lpcCarpetAddition.utils;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -14,9 +14,19 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-import static lpcCarpetAddition.Utils.DataUtils.*;
+import static lpcCarpetAddition.utils.DataUtils.*;
 
 public class CommandUtils {
+    private static int suppressedFeedBackCount = 0;
+    
+    public static void suppressNextFeedBack(int i) { suppressedFeedBackCount += i; }
+    public static void suppressNextFeedBack() { suppressNextFeedBack(1); }
+    public static boolean getNextFeedBackSuppressed() {
+        if(suppressedFeedBackCount == 0) return false;
+        suppressedFeedBackCount--;
+        return true;
+    }
+    
     public static final EnchantmentSuggester enchantmentSuggester
             = new EnchantmentSuggester();
     public static class EnchantmentSuggester implements SuggestionProvider<ServerCommandSource>{

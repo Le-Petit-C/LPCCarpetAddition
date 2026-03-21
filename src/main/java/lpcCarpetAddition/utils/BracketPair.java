@@ -1,4 +1,4 @@
-package lpcCarpetAddition.Utils;
+package lpcCarpetAddition.utils;
 
 @SuppressWarnings("unused")
 public record BracketPair(char left, char right) {

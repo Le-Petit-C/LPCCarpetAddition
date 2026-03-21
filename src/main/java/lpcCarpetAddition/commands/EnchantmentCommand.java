@@ -10,8 +10,8 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.jetbrains.annotations.NotNull;
 
-import static lpcCarpetAddition.Utils.CommandUtils.*;
-import static lpcCarpetAddition.Utils.DataUtils.*;
+import static lpcCarpetAddition.utils.CommandUtils.*;
+import static lpcCarpetAddition.utils.DataUtils.*;
 
 @Deprecated
 public class EnchantmentCommand implements CommandRegistrationCallback {

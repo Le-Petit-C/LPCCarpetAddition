@@ -30,8 +30,8 @@ public class HeadCommand implements CommandRegistrationCallback {
         commandDispatcher.register(enchantmentCommandBuilder);
     }
     private static final HeadCommand instance = new HeadCommand();
-    private static final @NotNull LiteralArgumentBuilder<ServerCommandSource> enchantmentCommandBuilder = buildEnchantmentCommand();
-    private static @NotNull LiteralArgumentBuilder<ServerCommandSource> buildEnchantmentCommand(){
+    private static final @NotNull LiteralArgumentBuilder<ServerCommandSource> enchantmentCommandBuilder = buildHeadCommand();
+    private static @NotNull LiteralArgumentBuilder<ServerCommandSource> buildHeadCommand(){
         LiteralArgumentBuilder<ServerCommandSource> result = CommandManager.literal("head");
         result.requires(source -> source.getPermissions().hasPermission(DefaultPermissions.GAMEMASTERS) || LPCCarpetSettings.commandHead);
         result.executes(context -> giveHead(context.getSource()));

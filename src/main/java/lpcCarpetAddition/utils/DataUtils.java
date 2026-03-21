@@ -1,4 +1,4 @@
-package lpcCarpetAddition.Utils;
+package lpcCarpetAddition.utils;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import it.unimi.dsi.fastutil.doubles.DoubleIterable;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Iterator;
 import java.util.Map;
 
-import static lpcCarpetAddition.Utils.CommandUtils.*;
+import static lpcCarpetAddition.utils.CommandUtils.*;
 
 @SuppressWarnings("unused")
 public class DataUtils {

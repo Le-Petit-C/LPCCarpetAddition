@@ -1,6 +1,6 @@
 package lpcCarpetAddition.mixin;
 
-import lpcCarpetAddition.Utils.TextEx;
+import lpcCarpetAddition.utils.TextEx;
 import lpcCarpetAddition.loggers.EnderPearlLogger;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;

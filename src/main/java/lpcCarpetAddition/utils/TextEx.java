@@ -1,48 +1,51 @@
 package lpcCarpetAddition.utils;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.text.*;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import static lpcCarpetAddition.utils.DataUtils.*;
 
 @SuppressWarnings("unused")
 public class TextEx {
-    public static MutableText hoverText(MutableText text, @Nullable Text hoveredText){
+    public static MutableComponent hoverText(MutableComponent text, @Nullable Component hoveredText){
         if(hoveredText == null) text.setStyle(text.getStyle().withHoverEvent(null));
         else text.setStyle(text.getStyle().withHoverEvent(new HoverEvent.ShowText(hoveredText)));
         return text;
     }
-    public static MutableText hoverEntity(MutableText text, @Nullable Entity entity){
+    public static MutableComponent hoverEntity(MutableComponent text, @Nullable Entity entity){
         if(entity == null) text.setStyle(text.getStyle().withHoverEvent(null));
         /*else setStyle(getStyle().withHoverEvent(new HoverEvent.ShowEntity(
                 new HoverEvent.EntityContent(entity.getType(), entity.getUuid(), entity.getName()))));*/
-        else text.setStyle(text.getStyle().withHoverEvent(new HoverEvent.ShowText(Text.literal(entity.getUuid().toString()))));
+        else text.setStyle(text.getStyle().withHoverEvent(new HoverEvent.ShowText(Component.literal(entity.getUUID().toString()))));
         return text;
     }
-    public static MutableText setColor(MutableText text, TextColor color){
+    public static MutableComponent setColor(MutableComponent text, TextColor color){
         text.setStyle(text.getStyle().withColor(color));
         return text;
     }
-    public static MutableText setColor(MutableText text, int color){
+    public static MutableComponent setColor(MutableComponent text, int color){
         text.setStyle(text.getStyle().withColor(color));
         return text;
     }
-    public static MutableText appendPos(MutableText text, Vec3d pos, int color, BracketPair brackets){
-        Text nextStr = setColor(Text.literal(brackets.left() + " "), color);
-        Text spreadStr = setColor(Text.literal(", "), color);
+    public static MutableComponent appendPos(MutableComponent text, Vec3 pos, int color, BracketPair brackets){
+        Component nextStr = setColor(Component.literal(brackets.left() + " "), color);
+        Component spreadStr = setColor(Component.literal(", "), color);
         for(double p : iterableFrom(pos)){
             text.append(nextStr);
             nextStr = spreadStr;
-            text.append(setColor(hoverText(Text.literal(String.format("%.1f", p)), Text.of(String.valueOf(p))), color));
+            text.append(setColor(hoverText(Component.literal(String.format("%.1f", p)), Component.nullToEmpty(String.valueOf(p))), color));
         }
-        text.append(setColor(Text.literal(" " + brackets.right()), color));
+        text.append(setColor(Component.literal(" " + brackets.right()), color));
         return text;
     }
-    public static MutableText appendPos(MutableText text, Vec3d pos){
-        Integer color = Formatting.AQUA.getColorValue();
+    public static MutableComponent appendPos(MutableComponent text, Vec3 pos){
+        Integer color = ChatFormatting.AQUA.getColor();
         return appendPos(text, pos, color != null ? color : 0xffffffff, BracketPair.SQUARE_BRACKETS);
     }
 }

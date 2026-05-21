@@ -1,6 +1,6 @@
 package lpcCarpetAddition.features.furnaceClear;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public enum FurnaceClearMode {
 	DIRECT_DESTROY(false, false),	// 立即销毁
@@ -18,7 +18,7 @@ public enum FurnaceClearMode {
 	
 	public boolean canClear(ItemStack inputStack, ItemStack outputStack) {
 		if(!hasResult) return true;
-		else if(outputStack.getCount() >= outputStack.getMaxCount()) return false;
+		else if(outputStack.getCount() >= outputStack.getMaxStackSize()) return false;
 		else return inputStack.getItem() == outputStack.getItem() || outputStack.isEmpty();
 	}
 }

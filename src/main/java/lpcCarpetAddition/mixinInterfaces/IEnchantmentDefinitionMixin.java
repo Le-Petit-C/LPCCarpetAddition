@@ -1,6 +1,6 @@
 package lpcCarpetAddition.mixinInterfaces;
 
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 public interface IEnchantmentDefinitionMixin {
     void lPCCarpetAddition$setMutableMaxLevel(int level);

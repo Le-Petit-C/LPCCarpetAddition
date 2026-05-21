@@ -1,21 +1,21 @@
 package lpcCarpetAddition.mixin.furnaceClear;
 
 import lpcCarpetAddition.LPCCarpetSettings;
-import net.minecraft.block.AbstractFurnaceBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.LockableContainerBlockEntity;
-import net.minecraft.item.FuelRegistry;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.ServerRecipeManager;
-import net.minecraft.recipe.input.SingleStackRecipeInput;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeManager;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.FuelValues;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,71 +24,71 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
-public abstract class FurnaceBlockEntityMixin extends LockableContainerBlockEntity {
+public abstract class FurnaceBlockEntityMixin extends BaseContainerBlockEntity {
 	protected FurnaceBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {super(blockEntityType, blockPos, blockState);}
-	@Shadow @Final private ServerRecipeManager.MatchGetter<SingleStackRecipeInput, ? extends AbstractCookingRecipe> matchGetter;
-	@Shadow protected DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
+	@Shadow @Final private RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> quickCheck;
+	@Shadow protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
 	@Shadow int litTimeRemaining;
 	@Shadow int litTotalTime;
-	@Shadow int cookingTimeSpent;
+	@Shadow int cookingTimer;
 	@Shadow int cookingTotalTime;
-	@Shadow protected abstract boolean isBurning();
-	@Shadow protected abstract int getFuelTime(FuelRegistry fuelRegistry, ItemStack stack);
-	@Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-	private static void injectTickHead(ServerWorld world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity blockEntity, CallbackInfo ci) {
+	@Shadow protected abstract boolean isLit();
+	@Shadow protected abstract int getBurnDuration(FuelValues fuelRegistry, ItemStack stack);
+	@Inject(method = "serverTick", at = @At("HEAD"), cancellable = true)
+	private static void injectTickHead(ServerLevel world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity blockEntity, CallbackInfo ci) {
 		if(!LPCCarpetSettings.furnaceClear) return;
 		FurnaceBlockEntityMixin be = (FurnaceBlockEntityMixin)(Object)blockEntity;
 		assert be != null;
-		ItemStack inputStack = be.inventory.getFirst();
+		ItemStack inputStack = be.items.getFirst();
 		if(inputStack.isEmpty()) return;
-		if(be.matchGetter.getFirstMatch(new SingleStackRecipeInput(inputStack), world).isPresent()) return;
-		ItemStack outputStack = be.inventory.get(2);
+		if(be.quickCheck.getRecipeFor(new SingleRecipeInput(inputStack), world).isPresent()) return;
+		ItemStack outputStack = be.items.get(2);
 		var clearMethod = LPCCarpetSettings.furnaceClearMode;
 		if(!clearMethod.canClear(inputStack, outputStack)) return;
 		if(clearMethod.needSmelt) {
-			boolean oldIsBurning = be.isBurning();
-			if(!be.isBurning()) {
-				ItemStack fuelStack = be.inventory.get(1);
-				be.litTimeRemaining = be.getFuelTime(world.getFuelRegistry(), fuelStack);
+			boolean oldIsBurning = be.isLit();
+			if(!be.isLit()) {
+				ItemStack fuelStack = be.items.get(1);
+				be.litTimeRemaining = be.getBurnDuration(world.fuelValues(), fuelStack);
 				be.litTotalTime = be.litTimeRemaining;
-				if (be.isBurning()) {
+				if (be.isLit()) {
 					Item item = fuelStack.getItem();
-					fuelStack.decrement(1);
+					fuelStack.shrink(1);
 					if (fuelStack.isEmpty())
-						be.inventory.set(1, item.getRecipeRemainder());
-					be.markDirty();
+						be.items.set(1, item.getCraftingRemainder());
+					be.setChanged();
 				}
 			}
-			if (be.isBurning()) {
-				++be.cookingTimeSpent;
+			if (be.isLit()) {
+				++be.cookingTimer;
 				--be.litTimeRemaining;
-				if (be.cookingTimeSpent == be.cookingTotalTime) {
-					be.cookingTimeSpent = 0;
-					be.cookingTotalTime = getCookTime(world, blockEntity);
-					if(clearMethod.hasResult) be.inventory.set(2, new ItemStack(inputStack.getItem(), outputStack.getCount() + 1));
-					inputStack.decrement(1);
-					be.markDirty();
+				if (be.cookingTimer == be.cookingTotalTime) {
+					be.cookingTimer = 0;
+					be.cookingTotalTime = getTotalCookTime(world, blockEntity);
+					if(clearMethod.hasResult) be.items.set(2, new ItemStack(inputStack.getItem(), outputStack.getCount() + 1));
+					inputStack.shrink(1);
+					be.setChanged();
 				}
 			}
-			if(be.isBurning() != oldIsBurning) {
-				state = state.with(AbstractFurnaceBlock.LIT, be.isBurning());
-				world.setBlockState(pos, state, Block.NOTIFY_ALL);
+			if(be.isLit() != oldIsBurning) {
+				state = state.setValue(AbstractFurnaceBlock.LIT, be.isLit());
+				world.setBlock(pos, state, Block.UPDATE_ALL);
 			}
 			ci.cancel();
 		}
 		else {
 			if(clearMethod.hasResult) {
-				int moved = Math.min(inputStack.getCount(), outputStack.getMaxCount() - outputStack.getCount());
+				int moved = Math.min(inputStack.getCount(), outputStack.getMaxStackSize() - outputStack.getCount());
 				if(moved == 0) return;
-				be.inventory.set(2, new ItemStack(inputStack.getItem(), outputStack.getCount() + moved));
-				inputStack.decrement(moved);
+				be.items.set(2, new ItemStack(inputStack.getItem(), outputStack.getCount() + moved));
+				inputStack.shrink(moved);
 			}
 			else inputStack.setCount(0);
-			be.markDirty();
+			be.setChanged();
 		}
 	}
 	
-	@Shadow private static int getCookTime(ServerWorld world, AbstractFurnaceBlockEntity blockEntity) {
+	@Shadow private static int getTotalCookTime(ServerLevel world, AbstractFurnaceBlockEntity blockEntity) {
 		return 0;
 	}
 }

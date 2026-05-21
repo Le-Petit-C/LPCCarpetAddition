@@ -1,13 +1,13 @@
 package lpcCarpetAddition.mixin;
 
 import lpcCarpetAddition.mixinInterfaces.IEnchantmentDefinitionMixin;
-import net.minecraft.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Enchantment.Definition.class)
+@Mixin(Enchantment.EnchantmentDefinition.class)
 public class EnchantmentDefinitionMixin implements IEnchantmentDefinitionMixin {
     @Final @Shadow
     private int maxLevel;

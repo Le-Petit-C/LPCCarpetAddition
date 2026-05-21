@@ -17,20 +17,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Enchantment.class) public class ModifyUnbreakingFunctionMixin {
 	@Unique Enchantment getThis(){return (Enchantment)(Object)this;}
 	@Inject(method = "modifyDurabilityChange", at = @At("HEAD"), cancellable = true)
-	void modifyItemDamageHead(ServerLevel world, int level, ItemStack stack, MutableFloat itemDamage, CallbackInfo ci){
+	void modifyItemDamageHead(ServerLevel serverLevel, int enchantmentLevel, ItemStack itemStack, MutableFloat change, CallbackInfo ci){
 		if(LPCCarpetSettings.modifyUnbreakingFunction
-			&& getThis() == world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getValue(Enchantments.UNBREAKING)
-			&& !stack.is(ItemTags.ARMOR_ENCHANTABLE)){
-			float v = itemDamage.floatValue();
-			var random = world.getRandom();
+			&& getThis() == serverLevel.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getValue(Enchantments.UNBREAKING)
+			&& !itemStack.is(ItemTags.ARMOR_ENCHANTABLE)){
+			float v = change.floatValue();
+			var random = serverLevel.getRandom();
 			int i = 0;
 			//noinspection IntegerDivisionInFloatingPointContext
-			float chance = 1.0f / (level + 1 + level * (level - 1) * (level - 2) * (level - 3) / 24);
+			float chance = 1.0f / (enchantmentLevel + 1 + enchantmentLevel * (enchantmentLevel - 1) * (enchantmentLevel - 2) * (enchantmentLevel - 3) / 24);
 			for(int k = 0; k < v; ++k){
 				if(random.nextFloat() > chance)
 					++i;
 			}
-			itemDamage.setValue(v - i);
+			change.setValue(v - i);
 			ci.cancel();
 		}
 	}

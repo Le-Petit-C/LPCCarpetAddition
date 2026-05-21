@@ -17,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ComparatorBlock.class)
 public abstract class ComparatorBlockMixin {
     @Inject(method = "getInputSignal", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/decoration/ItemFrame;getAnalogOutput()I", shift = At.Shift.AFTER))
-    void scheduleMoreWhenTestingItemFrame(Level world, BlockPos pos, BlockState state, CallbackInfoReturnable<Integer> cir, @Local ItemFrame itemFrameEntity){
+    void scheduleMoreWhenTestingItemFrame(Level level, BlockPos pos, BlockState state, CallbackInfoReturnable<Integer> cir, @Local(name = "itemFrame") ItemFrame itemFrame){
         if(!LPCCarpetSettings.comparatorGetsRealTime) return;
-        if(itemFrameEntity.getItem().getItem() != Items.CLOCK) return;
-        if(world instanceof ServerLevel serverWorld)
+        if(itemFrame.getItem().getItem() != Items.CLOCK) return;
+        if(level instanceof ServerLevel serverWorld)
             serverWorld.scheduleTick(pos, state.getBlock(), 1);
     }
 }

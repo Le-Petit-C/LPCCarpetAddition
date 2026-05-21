@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -28,20 +29,19 @@ public abstract class FurnaceBlockEntityMixin extends BaseContainerBlockEntity {
 	protected FurnaceBlockEntityMixin(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {super(blockEntityType, blockPos, blockState);}
 	@Shadow @Final private RecipeManager.CachedCheck<SingleRecipeInput, ? extends AbstractCookingRecipe> quickCheck;
 	@Shadow protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
-	@Shadow int litTimeRemaining;
-	@Shadow int litTotalTime;
-	@Shadow int cookingTimer;
-	@Shadow int cookingTotalTime;
-	@Shadow protected abstract boolean isLit();
-	@Shadow protected abstract int getBurnDuration(FuelValues fuelRegistry, ItemStack stack);
+	@Shadow private int litTimeRemaining;
+	@Shadow private int litTotalTime;
+	@Shadow private int cookingTimer;
+	@Shadow private int cookingTotalTime;
+	@Shadow protected abstract int getBurnDuration(FuelValues fuelValues, ItemStack itemStack);
 	@Inject(method = "serverTick", at = @At("HEAD"), cancellable = true)
-	private static void injectTickHead(ServerLevel world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity blockEntity, CallbackInfo ci) {
+	private static void injectTickHead(ServerLevel level, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity entity, CallbackInfo ci) {
 		if(!LPCCarpetSettings.furnaceClear) return;
-		FurnaceBlockEntityMixin be = (FurnaceBlockEntityMixin)(Object)blockEntity;
+		FurnaceBlockEntityMixin be = (FurnaceBlockEntityMixin)(Object) entity;
 		assert be != null;
 		ItemStack inputStack = be.items.getFirst();
 		if(inputStack.isEmpty()) return;
-		if(be.quickCheck.getRecipeFor(new SingleRecipeInput(inputStack), world).isPresent()) return;
+		if(be.quickCheck.getRecipeFor(new SingleRecipeInput(inputStack), level).isPresent()) return;
 		ItemStack outputStack = be.items.get(2);
 		var clearMethod = LPCCarpetSettings.furnaceClearMode;
 		if(!clearMethod.canClear(inputStack, outputStack)) return;
@@ -49,13 +49,13 @@ public abstract class FurnaceBlockEntityMixin extends BaseContainerBlockEntity {
 			boolean oldIsBurning = be.isLit();
 			if(!be.isLit()) {
 				ItemStack fuelStack = be.items.get(1);
-				be.litTimeRemaining = be.getBurnDuration(world.fuelValues(), fuelStack);
+				be.litTimeRemaining = be.getBurnDuration(level.fuelValues(), fuelStack);
 				be.litTotalTime = be.litTimeRemaining;
 				if (be.isLit()) {
 					Item item = fuelStack.getItem();
 					fuelStack.shrink(1);
 					if (fuelStack.isEmpty())
-						be.items.set(1, item.getCraftingRemainder());
+						be.items.set(1, item.getCraftingRemainder().create());
 					be.setChanged();
 				}
 			}
@@ -64,7 +64,7 @@ public abstract class FurnaceBlockEntityMixin extends BaseContainerBlockEntity {
 				--be.litTimeRemaining;
 				if (be.cookingTimer == be.cookingTotalTime) {
 					be.cookingTimer = 0;
-					be.cookingTotalTime = getTotalCookTime(world, blockEntity);
+					be.cookingTotalTime = getTotalCookTime(level, entity);
 					if(clearMethod.hasResult) be.items.set(2, new ItemStack(inputStack.getItem(), outputStack.getCount() + 1));
 					inputStack.shrink(1);
 					be.setChanged();
@@ -72,7 +72,7 @@ public abstract class FurnaceBlockEntityMixin extends BaseContainerBlockEntity {
 			}
 			if(be.isLit() != oldIsBurning) {
 				state = state.setValue(AbstractFurnaceBlock.LIT, be.isLit());
-				world.setBlock(pos, state, Block.UPDATE_ALL);
+				level.setBlock(pos, state, Block.UPDATE_ALL);
 			}
 			ci.cancel();
 		}
@@ -88,7 +88,9 @@ public abstract class FurnaceBlockEntityMixin extends BaseContainerBlockEntity {
 		}
 	}
 	
-	@Shadow private static int getTotalCookTime(ServerLevel world, AbstractFurnaceBlockEntity blockEntity) {
+	@Unique private boolean isLit() { return litTimeRemaining > 0; }
+	
+	@Shadow private static int getTotalCookTime(ServerLevel level, AbstractFurnaceBlockEntity entity) {
 		return 0;
 	}
 }

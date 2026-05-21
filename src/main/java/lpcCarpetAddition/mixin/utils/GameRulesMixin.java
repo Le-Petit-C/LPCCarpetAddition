@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(GameRules.class)
 public class GameRulesMixin {
 	@Inject(method = "get", at = @At("RETURN"), cancellable = true)
-	<T> void injectGetValueReturn(GameRule<T> rule, CallbackInfoReturnable<T> cir) {
+	<T> void injectGetValueReturn(GameRule<T> gameRule, CallbackInfoReturnable<T> cir) {
 		if(cir.getReturnValue() instanceof Boolean
-			&& rule == GameRules.SEND_COMMAND_FEEDBACK
+			&& gameRule == GameRules.SEND_COMMAND_FEEDBACK
 			&& CommandUtils.getNextFeedBackSuppressed())
 			//noinspection unchecked
 			cir.setReturnValue((T)(Boolean)false);

@@ -26,7 +26,7 @@ public abstract class EnderPearlEntityMixin{
 			TextEx.setColor(Component.literal("tick : ").append(Component.nullToEmpty(String.valueOf(getThis().level().getGameTime()))), 0xFFAA00),
 			TextEx.appendPos(dataText, getThis().position())
 		};
-		EnderPearlLogger.getInstance().log((playerOption, player)->{
+		EnderPearlLogger.getInstance().log((_, player)->{
 			if(!player.equals(getThis().getOwner())) return null;
 			else return texts;
 		});

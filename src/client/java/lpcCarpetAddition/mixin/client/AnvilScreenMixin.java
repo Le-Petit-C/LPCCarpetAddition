@@ -1,20 +1,23 @@
 package lpcCarpetAddition.mixin.client;
 
-import net.minecraft.client.gui.screen.ingame.AnvilScreen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.inventory.AnvilScreen;
+import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AnvilMenu;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(AnvilScreen.class)
-public abstract class AnvilScreenMixin extends HandledScreen<AnvilScreenHandler> {
-	public AnvilScreenMixin(AnvilScreenHandler handler, PlayerInventory inventory, Text title) {super(handler, inventory, title);}
-	@ModifyConstant(method = "drawForeground", constant = @Constant(intValue = 40))
+public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
+	public AnvilScreenMixin(AnvilMenu menu, Inventory inventory, Component title, Identifier menuResource) {
+		super(menu, inventory, title, menuResource);
+	}
+	@ModifyConstant(method = "extractLabels", constant = @Constant(intValue = 40))
 	private int modifyTooExpensiveConstant(int constant) {
-		if(handler.getSlot(0).hasStack() && handler.getSlot(1).hasStack() && !handler.getSlot(2).hasStack()) return Integer.MIN_VALUE;
+		if(menu.getSlot(0).hasItem() && menu.getSlot(1).hasItem() && !menu.getSlot(2).hasItem()) return Integer.MIN_VALUE;
 		else return Integer.MAX_VALUE;
 	}
 }

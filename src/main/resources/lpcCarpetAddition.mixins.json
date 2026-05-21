@@ -11,8 +11,10 @@
 		"EntityPlayerMPFakeMixin",
 		"ItemFrameEntityMixin",
 		"ModifyUnbreakingFunctionMixin",
+		"SetBlockCommandMixin",
 		"furnaceClear.FurnaceBlockEntityMixin",
-		"utils.GameRulesMixin"
+		"utils.GameRulesMixin",
+		"utils.MinecraftServerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

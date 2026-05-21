@@ -17,15 +17,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import static lpcCarpetAddition.utils.DataUtils.*;
 
 public class CommandUtils {
-    private static int suppressedFeedBackCount = 0;
+    private static int iSuppressFeedBack = 0;
     
-    public static void suppressNextFeedBack(int i) { suppressedFeedBackCount += i; }
-    public static void suppressNextFeedBack() { suppressNextFeedBack(1); }
-    public static boolean getNextFeedBackSuppressed() {
-        if(suppressedFeedBackCount == 0) return false;
-        suppressedFeedBackCount--;
-        return true;
-    }
+    public static void suppressFeedBack() { ++iSuppressFeedBack; }
+    public static void unsuppressFeedBack() { --iSuppressFeedBack; }
+    public static boolean isFeedBackSuppressed() { return iSuppressFeedBack != 0; }
     
     public static final EnchantmentSuggester enchantmentSuggester
             = new EnchantmentSuggester();

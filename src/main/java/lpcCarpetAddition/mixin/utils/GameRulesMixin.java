@@ -14,7 +14,7 @@ public class GameRulesMixin {
 	<T> void injectGetValueReturn(GameRule<T> gameRule, CallbackInfoReturnable<T> cir) {
 		if(cir.getReturnValue() instanceof Boolean
 			&& gameRule == GameRules.SEND_COMMAND_FEEDBACK
-			&& CommandUtils.getNextFeedBackSuppressed())
+			&& CommandUtils.isFeedBackSuppressed())
 			//noinspection unchecked
 			cir.setReturnValue((T)(Boolean)false);
 	}

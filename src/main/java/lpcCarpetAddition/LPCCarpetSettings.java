@@ -1,6 +1,7 @@
 package lpcCarpetAddition;
 
 import carpet.api.settings.Rule;
+import lpcCarpetAddition.validators.LoveGhastlingValidator;
 import lpcCarpetAddition.validators.RelimitedEnchantmentsValidator;
 import lpcCarpetAddition.features.furnaceClear.FurnaceClearMode;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +29,6 @@ public class LPCCarpetSettings {
     public static boolean furnaceClear = false;
     @Rule(categories = {FEATURE, LPC})
     public static FurnaceClearMode furnaceClearMode = FurnaceClearMode.SMELT_PASS;
-    @Rule(categories = {FEATURE, LPC}, options = {"-1", "0", "1"})
+    @Rule(categories = {FEATURE, LPC}, options = {"-1", "0", "1"}, validators = {LoveGhastlingValidator.class})
     public static int loveGhastling = 0;
 }

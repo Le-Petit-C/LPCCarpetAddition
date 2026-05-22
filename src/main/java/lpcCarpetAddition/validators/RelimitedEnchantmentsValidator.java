@@ -1,4 +1,4 @@
-package lpcCarpetAddition.Validators;
+package lpcCarpetAddition.validators;
 
 import carpet.api.settings.CarpetRule;
 import carpet.api.settings.Validator;

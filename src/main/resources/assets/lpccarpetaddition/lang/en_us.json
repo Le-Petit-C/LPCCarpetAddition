@@ -19,8 +19,8 @@
   "carpet.rule.furnaceClear.desc": "When enabled, automatically processes items when the furnace input slot is clogged",
   "carpet.rule.furnaceClearMode.name": "Furnace Cleaner Processing Mode",
   "carpet.rule.furnaceClearMode.desc": "Select how to handle furnace input:\n• direct_destroy: Destroy input items immediately\n• direct_pass: Pass items to output slot immediately\n• smelt_destroy: Destroy after normal smelting cycle\n• smelt_pass: Pass to output after normal smelting cycle",
-  "carpet.rule.spectatorNoChunkLoading.name": "旁观模式不加载区块",
-  "carpet.rule.spectatorNoChunkLoading.desc": "旁观模式不加载区块",
+  "carpet.rule.loveGhastling.name": "LoveGhastling Level",
+  "carpet.rule.loveGhastling.desc": "LoveGhastling level. 0 keeps vanilla behavior unchanged. When set to 1, dried ghasts are removed from piglin barter loot. When set to -1, dried ghasts become edible.",
   "carpet.lpc.commandHead.fail.notPlayerHead" : "Not player head in your main hand",
   "carpet.lpc.commandHead.fail.notBlankOrYourHead" : "Not blank player head or your head in your main hand"
 }

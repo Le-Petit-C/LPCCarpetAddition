@@ -8,6 +8,7 @@ import lpcCarpetAddition.commands.HeadCommand;
 import lpcCarpetAddition.commands.QSetBlockCommand;
 import lpcCarpetAddition.loggers.EnderPearlLogger;
 import lpcCarpetAddition.loggers.LPCStandardLogger;
+import lpcCarpetAddition.validators.LoveGhastlingValidator;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -36,6 +37,7 @@ public class LPCCarpetAddition implements ModInitializer, CarpetExtension {
 		// CommandRegistrationCallback.EVENT.register(EnchantmentCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(HeadCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(QSetBlockCommand.getInstance());
+		LoveGhastlingValidator.init();
 		LOGGER.info("Initialized.");
 	}
 

@@ -19,8 +19,8 @@
 	"carpet.rule.furnaceClear.desc": "启用后，当熔炉输入槽被堵塞时自动处理物品",
 	"carpet.rule.furnaceClearMode.name": "熔炉清理处理模式",
 	"carpet.rule.furnaceClearMode.desc": "选择熔炉输入处理的具体方式：\n• direct_destroy: 立即销毁输入物品\n• direct_pass: 立即移至输出槽\n• smelt_destroy: 熔炼完成后销毁\n• smelt_pass: 熔炼完成后移至输出槽",
-	"carpet.rule.spectatorNoChunkLoading.name": "旁观模式不加载区块",
-	"carpet.rule.spectatorNoChunkLoading.desc": "旁观模式不加载区块",
+	"carpet.rule.loveGhastling.name": "爱魂TV等级",
+	"carpet.rule.loveGhastling.desc": "爱魂TV等级，0为原版，不作改动，为1时从猪灵交易项目中移除失水恶魂，为-1时将失水恶魂设为可食用",
 	"carpet.lpc.commandHead.fail.notPlayerHead": "主手上没有玩家头颅",
 	"carpet.lpc.commandHead.fail.notBlankOrYourHead": "主手上不是白板头颅或你自己的头颅"
 }

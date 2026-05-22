@@ -12,7 +12,13 @@
 		"ItemFrameEntityMixin",
 		"ModifyUnbreakingFunctionMixin",
 		"SetBlockCommandMixin",
+		"accessors.LootItemAccessor",
+		"accessors.LootTableAccessor",
+		"accessors.LootTableAccessor$BuilderAccessor",
 		"furnaceClear.FurnaceBlockEntityMixin",
+		"loveGhastling.ItemStackMixin",
+		"loveGhastling.LootPoolSingletonContainerMixin",
+		"loveGhastling.LootPoolSingletonContainerMixin$EntryBaseMixin",
 		"utils.GameRulesMixin",
 		"utils.MinecraftServerMixin"
 	],

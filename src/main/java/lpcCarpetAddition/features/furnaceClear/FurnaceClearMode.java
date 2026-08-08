@@ -19,6 +19,6 @@ public enum FurnaceClearMode {
 	public boolean canClear(ItemStack inputStack, ItemStack outputStack) {
 		if(!hasResult) return true;
 		else if(outputStack.getCount() >= outputStack.getMaxStackSize()) return false;
-		else return inputStack.getItem() == outputStack.getItem() || outputStack.isEmpty();
+		else return ItemStack.isSameItemSameComponents(inputStack, outputStack) || outputStack.isEmpty();
 	}
 }

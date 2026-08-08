@@ -65,7 +65,7 @@ public abstract class FurnaceBlockEntityMixin extends BaseContainerBlockEntity {
 				if (be.cookingTimer == be.cookingTotalTime) {
 					be.cookingTimer = 0;
 					be.cookingTotalTime = getTotalCookTime(level, entity);
-					if(clearMethod.hasResult) be.items.set(2, new ItemStack(inputStack.getItem(), outputStack.getCount() + 1));
+					if(clearMethod.hasResult) be.items.set(2, inputStack.copyWithCount(outputStack.getCount() + 1));
 					inputStack.shrink(1);
 					be.setChanged();
 				}
@@ -80,7 +80,7 @@ public abstract class FurnaceBlockEntityMixin extends BaseContainerBlockEntity {
 			if(clearMethod.hasResult) {
 				int moved = Math.min(inputStack.getCount(), outputStack.getMaxStackSize() - outputStack.getCount());
 				if(moved == 0) return;
-				be.items.set(2, new ItemStack(inputStack.getItem(), outputStack.getCount() + moved));
+				be.items.set(2, inputStack.copyWithCount(outputStack.getCount() + moved));
 				inputStack.shrink(moved);
 			}
 			else inputStack.setCount(0);

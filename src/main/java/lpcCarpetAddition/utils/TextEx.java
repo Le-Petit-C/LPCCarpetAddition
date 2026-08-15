@@ -1,6 +1,5 @@
 package lpcCarpetAddition.utils;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
@@ -45,7 +44,7 @@ public class TextEx {
         return text;
     }
     public static MutableComponent appendPos(MutableComponent text, Vec3 pos){
-        Integer color = ChatFormatting.AQUA.getColor();
-        return appendPos(text, pos, color != null ? color : 0xffffffff, BracketPair.SQUARE_BRACKETS);
+        int color = TextColor.AQUA.getValue();
+        return appendPos(text, pos, color, BracketPair.SQUARE_BRACKETS);
     }
 }

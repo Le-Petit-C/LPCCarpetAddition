@@ -1,8 +1,7 @@
 package lpcCarpetAddition;
 
 import carpet.api.settings.Rule;
-import lpcCarpetAddition.validators.LoveGhastlingValidator;
-import lpcCarpetAddition.validators.RelimitedEnchantmentsValidator;
+import lpcCarpetAddition.validators.*;
 import lpcCarpetAddition.features.furnaceClear.FurnaceClearMode;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,4 +30,12 @@ public class LPCCarpetSettings {
     public static FurnaceClearMode furnaceClearMode = FurnaceClearMode.SMELT_PASS;
     @Rule(categories = {FEATURE, LPC}, options = {"-1", "0", "1"}, validators = {LoveGhastlingValidator.class})
     public static int loveGhastling = 0;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean phantomSpawnMonsterCapped = false;
+    @Rule(categories = {FEATURE, LPC}, strict = false, options = {"0", "64"})
+    public static int phantomSpawnMonsterCappedGlobalExtra = 64;
+    @Rule(categories = {FEATURE, LPC}, strict = false, options = {"0", "8"})
+    public static int phantomSpawnMonsterCappedLocalExtra = 8;
+    @Rule(categories = {FEATURE, LPC}, validators = {PhantomsCountAsMonsterValidator.class})
+    public static boolean phantomsCountAsMonster = true;
 }

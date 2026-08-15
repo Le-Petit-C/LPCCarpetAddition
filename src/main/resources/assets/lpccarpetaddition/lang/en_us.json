@@ -21,6 +21,14 @@
   "carpet.rule.furnaceClearMode.desc": "Select how to handle furnace input:\n• direct_destroy: Destroy input items immediately\n• direct_pass: Pass items to output slot immediately\n• smelt_destroy: Destroy after normal smelting cycle\n• smelt_pass: Pass to output after normal smelting cycle",
   "carpet.rule.loveGhastling.name": "LoveGhastling Level",
   "carpet.rule.loveGhastling.desc": "LoveGhastling level. 0 keeps vanilla behavior unchanged. When set to 1, dried ghasts are removed from piglin barter loot. When set to -1, dried ghasts become edible.",
+  "carpet.rule.phantomSpawnMonsterCapped.name": "Phantom Spawn Monster Capped",
+  "carpet.rule.phantomSpawnMonsterCapped.desc": "When enabled, phantom spawning is limited by global and local monster mob caps. Phantoms only spawn for a player while the monster population stays below the configured limits.",
+  "carpet.rule.phantomSpawnMonsterCappedGlobalExtra.name": "Phantom Spawn Monster Capped Global Extra",
+  "carpet.rule.phantomSpawnMonsterCappedGlobalExtra.desc": "Extra allowance added to the global monster mob cap for phantom spawning. Phantoms may still spawn while the global monster count stays below (vanilla global cap + this value).",
+  "carpet.rule.phantomSpawnMonsterCappedLocalExtra.name": "Phantom Spawn Monster Capped Local Extra",
+  "carpet.rule.phantomSpawnMonsterCappedLocalExtra.desc": "Extra allowance added to the vanilla per-player local monster cap for phantom spawning. A phantom only spawns for a player while that player's local monster count stays below (vanilla local cap + this value).",
+  "carpet.rule.phantomsCountAsMonster.name": "Phantoms Count As Monster",
+  "carpet.rule.phantomsCountAsMonster.desc": "Whether phantoms are counted in the monster (MONSTER) mob category. Disable to move phantoms to the MISC category so they no longer count toward monster mob caps (including the phantomSpawnMonsterCapped limits). Default keeps vanilla behavior.",
   "carpet.lpc.commandHead.fail.notPlayerHead" : "Not player head in your main hand",
   "carpet.lpc.commandHead.fail.notBlankOrYourHead" : "Not blank player head or your head in your main hand"
 }

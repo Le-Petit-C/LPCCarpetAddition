@@ -21,6 +21,14 @@
 	"carpet.rule.furnaceClearMode.desc": "选择熔炉输入处理的具体方式：\n• direct_destroy: 立即销毁输入物品\n• direct_pass: 立即移至输出槽\n• smelt_destroy: 熔炼完成后销毁\n• smelt_pass: 熔炼完成后移至输出槽",
 	"carpet.rule.loveGhastling.name": "爱魂TV等级",
 	"carpet.rule.loveGhastling.desc": "爱魂TV等级，0为原版，不作改动，为1时从猪灵交易项目中移除失水恶魂，为-1时将失水恶魂设为可食用",
+	"carpet.rule.phantomSpawnMonsterCapped.name": "幻翼生成受怪物上限限制",
+	"carpet.rule.phantomSpawnMonsterCapped.desc": "开启后，幻翼的生成将受到全局与局部怪物数量上限的限制，只有怪物数量低于设定上限时幻翼才会为玩家生成",
+	"carpet.rule.phantomSpawnMonsterCappedGlobalExtra.name": "幻翼生成全局怪物上限附加量",
+	"carpet.rule.phantomSpawnMonsterCappedGlobalExtra.desc": "为幻翼生成在原版全局怪物数量上限的基础上额外增加的容余，全局怪物数量低于（原版全局上限 + 该值）时幻翼仍可生成",
+	"carpet.rule.phantomSpawnMonsterCappedLocalExtra.name": "幻翼生成局部怪物上限附加量",
+	"carpet.rule.phantomSpawnMonsterCappedLocalExtra.desc": "为幻翼生成在原版局部怪物数量上限的基础上额外增加的容余，当该玩家周围的局部怪物计数低于（原版局部上限 + 该值）时幻翼才会为其生成",
+	"carpet.rule.phantomsCountAsMonster.name": "幻翼计入怪物数量",
+	"carpet.rule.phantomsCountAsMonster.desc": "幻翼是否计入怪物(MONSTER)生物类别。关闭后幻翼将归入MISC类别，不再计入怪物数量上限（包括phantomSpawnMonsterCapped的限制）。默认为开启，保持原版行为",
 	"carpet.lpc.commandHead.fail.notPlayerHead": "主手上没有玩家头颅",
 	"carpet.lpc.commandHead.fail.notBlankOrYourHead": "主手上不是白板头颅或你自己的头颅"
 }

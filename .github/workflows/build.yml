@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
+      # 强制使用官方 Gradle 源（保留版本号）
+      - name: force official gradle distribution
+        run: |
+          sed -i 's#https://[^/]*/gradle/#https://services.gradle.org/distributions/#g' gradle/wrapper/gradle-wrapper.properties
       - name: validate gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
       - name: setup jdk

@@ -1,53 +1,80 @@
 package lpcCarpetAddition.utils;
 
-import com.mojang.brigadier.arguments.StringArgumentType;
+import carpet.CarpetSettings;
+import carpet.utils.Translations;
+import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import com.mojang.brigadier.suggestion.Suggestions;
-import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.CompletableFuture;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.commands.SharedSuggestionProvider;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.enchantment.Enchantment;
+import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static lpcCarpetAddition.utils.DataUtils.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.function.Function;
 
 public class CommandUtils {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommandUtils.class);
     private static int iSuppressFeedBack = 0;
     
     public static void suppressFeedBack() { ++iSuppressFeedBack; }
     public static void unsuppressFeedBack() { --iSuppressFeedBack; }
     public static boolean isFeedBackSuppressed() { return iSuppressFeedBack != 0; }
-    
-    public static final EnchantmentSuggester enchantmentSuggester
-            = new EnchantmentSuggester();
-    public static class EnchantmentSuggester implements SuggestionProvider<CommandSourceStack>{
-        private EnchantmentSuggester(){}
-        @Override public CompletableFuture<Suggestions> getSuggestions(CommandContext<CommandSourceStack> context, SuggestionsBuilder builder) throws CommandSyntaxException {
-            boolean suggested = false;
-            String input = context.getInput();
-            String id = input.substring(input.lastIndexOf(' ') + 1);
-            for(ResourceKey<Enchantment> enchantment : getEnchantments(context).registryKeySet()){
-                if(!enchantment.identifier().toString().contains(id)) continue;
-                suggested = true;
-                builder.suggest(enchantment.identifier().toString());
-            }
-            if(suggested) return builder.buildFuture();
-            else throw createEnchantmentSyntaxException(id);
+
+    public static <T> SuggestionProvider<T> suggestInEnum(Class<? extends Enum<?>> enumClass) {
+        return suggestInArray(enumClass.getEnumConstants(), v->v.name().toLowerCase());
+    }
+
+    public static <T, U> SuggestionProvider<T> suggestInArray(U[] iterable, Function<U, String> mapping) {
+        var suggestionsBuilder = ImmutableList.<String>builder();
+        for(var u : iterable) suggestionsBuilder.add(mapping.apply(u));
+        return (_, builder) -> SharedSuggestionProvider.suggest(suggestionsBuilder.build(), builder);
+    }
+
+    public static MutableComponent fixTranslatedText(String translationKey, Object... args) {
+        return Component.translatableWithFallback(translationKey, Translations.tr(translationKey), args);
+    }
+
+    public static Identifier getEnchantmentId(MinecraftServer server, Enchantment enchantment) {
+        return server.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getKey(enchantment);
+    }
+
+    public static Identifier getEnchantmentId(CommandSourceStack sourceStack, Enchantment enchantment) {
+        return getEnchantmentId(sourceStack.getServer(), enchantment);
+    }
+
+    public static Identifier getEnchantmentId(CommandContext<? extends CommandSourceStack> context, Enchantment enchantment) {
+        return getEnchantmentId(context.getSource(), enchantment);
+    }
+
+    /**
+     * Loads the help text for a sub-command from the mod resource
+     * {@code assets/lpccarpetaddition/help/<subCommand>/<lang>.txt}, following
+     * the server language ({@link CarpetSettings#language}) with en_us fallback.
+     */
+    public static String loadHelpText(String subCommand) {
+        String lang = CarpetSettings.language;
+        String text = readHelpResource(subCommand, lang);
+        if (text == null && !"en_us".equals(lang)) text = readHelpResource(subCommand, "en_us");
+        return text == null ? "" : text.replace("\r\n", "\n");
+    }
+
+    private static String readHelpResource(String subCommand, String lang) {
+        try (InputStream in = CommandUtils.class.getClassLoader()
+                .getResourceAsStream("assets/lpccarpetaddition/help/" + subCommand + "/" + lang + ".txt")) {
+            return in == null ? null : IOUtils.toString(in, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            LOGGER.warn("Failed to read help text for '{}/{}'", subCommand, lang, e);
+            return null;
         }
-    }
-    public static @NotNull CommandSyntaxException createEnchantmentSyntaxException(String invalidId){
-        return CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException().create("Invalid enchantment id:" + invalidId);
-    }
-    public static Registry<Enchantment> getEnchantments(CommandContext<CommandSourceStack> context){
-        return DataUtils.getEnchantments(context.getSource().getServer());
-    }
-    public static @NotNull EnchantmentRecord getEnchantment(CommandContext<CommandSourceStack> context, String argumentName) throws CommandSyntaxException {
-        String id = StringArgumentType.getString(context, argumentName);
-        return getEnchantmentOrThrow(context.getSource().getServer(), id);
     }
 }

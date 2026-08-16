@@ -1,11 +1,12 @@
 package lpcCarpetAddition.commands;
 
-import carpet.utils.Translations;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import lpcCarpetAddition.LPCCarpetSettings;
+import lpcCarpetAddition.utils.CommandUtils;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -21,10 +22,11 @@ import net.minecraft.world.item.component.ResolvableProfile;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
+import static lpcCarpetAddition.utils.CommandUtils.fixTranslatedText;
+
 public class HeadCommand implements CommandRegistrationCallback {
-    private static Component fixTranslatedText(String translationKey) { return Component.literal(Translations.tr(translationKey)); }
-    private static final DynamicCommandExceptionType FAILED_NOT_PLAYER_HEAD = new DynamicCommandExceptionType(ignored -> fixTranslatedText("carpet.lpc.commandHead.fail.notPlayerHead"));
-    private static final DynamicCommandExceptionType FAILED_NOT_BLANK_OR_YOUR = new DynamicCommandExceptionType(ignored -> fixTranslatedText("carpet.lpc.commandHead.fail.notBlankOrYourHead"));
+    private static final DynamicCommandExceptionType FAILED_NOT_PLAYER_HEAD = new DynamicCommandExceptionType(ignored -> fixTranslatedText("carpet.lpc.command.head.fail.notPlayerHead"));
+    private static final DynamicCommandExceptionType FAILED_NOT_BLANK_OR_YOUR = new DynamicCommandExceptionType(ignored -> fixTranslatedText("carpet.lpc.command.head.fail.notBlankOrYourHead"));
     public static HeadCommand getInstance(){return instance;}
     @Override public void register(CommandDispatcher<CommandSourceStack> commandDispatcher, @NonNull CommandBuildContext commandRegistryAccess, Commands.@NonNull CommandSelection registrationEnvironment) {
         commandDispatcher.register(enchantmentCommandBuilder);
@@ -35,7 +37,12 @@ public class HeadCommand implements CommandRegistrationCallback {
         LiteralArgumentBuilder<CommandSourceStack> result = Commands.literal("head");
         result.requires(source -> source.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER) || LPCCarpetSettings.commandHead);
         result.executes(context -> giveHead(context.getSource()));
+        result.then(Commands.literal("help").executes(HeadCommand::help));
         return result;
+    }
+    private static int help(CommandContext<CommandSourceStack> context) {
+        context.getSource().sendSystemMessage(Component.literal(CommandUtils.loadHelpText("head")));
+        return 1;
     }
     private static int giveHead(CommandSourceStack source) throws CommandSyntaxException {
         if(source.getEntity() instanceof ServerPlayer player){

@@ -4,6 +4,7 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import lpcCarpetAddition.commands.EnchantmentCommand;
 import lpcCarpetAddition.commands.HeadCommand;
 import lpcCarpetAddition.commands.QSetBlockCommand;
 import lpcCarpetAddition.loggers.EnderPearlLogger;
@@ -12,6 +13,7 @@ import lpcCarpetAddition.validators.LoveGhastlingValidator;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +36,13 @@ public class LPCCarpetAddition implements ModInitializer, CarpetExtension {
 	@Override public void onInitialize() {
 		LOGGER.info("Start initializing...");
 		CarpetServer.manageExtension(this);
-		// CommandRegistrationCallback.EVENT.register(EnchantmentCommand.getInstance());
+		CommandRegistrationCallback.EVENT.register(EnchantmentCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(HeadCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(QSetBlockCommand.getInstance());
+
+		ServerLifecycleEvents.SERVER_STARTED.register(EnchantmentCommand.getInstance());
+		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(EnchantmentCommand.getInstance());
+
 		LoveGhastlingValidator.init();
 		LOGGER.info("Initialized.");
 	}

@@ -1,0 +1,8 @@
+§eUsage of /head:§r
+§f    /head
+§7        Convert the skull in your main hand to/from your player head
+§7        - Blank skull -> your player head
+§7        - Your player head -> blank skull
+§7        - Otherwise: error
+§f    /head help
+§7        Show this help

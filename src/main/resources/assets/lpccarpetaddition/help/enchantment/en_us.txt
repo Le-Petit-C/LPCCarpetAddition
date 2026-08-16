@@ -1,0 +1,19 @@
+§eUsage of /enchantment:§r
+§f    /enchantment limit set §7<enchantment> <type> <level>
+§7        Set a max-level override for the given limit type
+§f    /enchantment limit remove §7<enchantment> [<type>]
+§7        Remove override(s) for the enchantment
+§f    /enchantment limit remove all
+§7        Remove all overrides
+§f    /enchantment limit reload
+§7        Reload overrides from file
+§f    /enchantment limit list
+§7        List current overrides
+§f    /enchantment help
+§7        Show this help
+
+§eLimit types:§r
+§f    §aanvil§7 - Max level when combining enchantments on an anvil
+§f    §asingle_random_enchantment§7 - Random level cap for a single random enchantment, e.g. villager trades, loot that grants one enchantment
+§f    §amulti_random_enchantments§7 - Random level cap when generating multiple enchantments from a modified enchantment level, e.g. enchanting table, end city loot
+§f    §aenchant_command§7 - Max level for /enchant; if unset, uses the larger of the vanilla cap and the highest limit among other types

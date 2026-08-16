@@ -15,7 +15,7 @@ public class ServerExtraData {
 		default T getExtraData(CommandSourceStack commandSource) {
 			return getExtraData(commandSource.getServer());
 		}
-		default T getExtraData(CommandContext<CommandSourceStack> commandContext) {
+		default T getExtraData(CommandContext<? extends CommandSourceStack> commandContext) {
 			return getExtraData(commandContext.getSource());
 		}
 	}

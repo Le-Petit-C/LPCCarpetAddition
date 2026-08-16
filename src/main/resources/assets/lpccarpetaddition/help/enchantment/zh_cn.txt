@@ -1,0 +1,19 @@
+§e/enchantment 命令用途：§r
+§f    /enchantment limit set §7<附魔> <类型> <等级>
+§7        为指定限额类型设置附魔上限重载
+§f    /enchantment limit remove §7<附魔> [<类型>]
+§7        移除该附魔的上限重载
+§f    /enchantment limit remove all
+§7        移除所有上限重载
+§f    /enchantment limit reload
+§7        从文件重新加载上限重载
+§f    /enchantment limit list
+§7        查看当前上限重载
+§f    /enchantment help
+§7        显示本帮助
+
+§e限额类型：§r
+§f    §aanvil§7 - 铁砧合并附魔时的附魔等级上限
+§f    §asingle_random_enchantment§7 - 生成单个随机附魔时的随机上限，如村民交易、单个附魔的战利品生成
+§f    §amulti_random_enchantments§7 - 基于修正附魔等级生成多个随机附魔时的随机上限，如附魔台、末地城物品
+§f    §aenchant_command§7 - 覆盖 /enchant 命令可附魔的最大等级；未设置时采用原版上限与其它限额类型中的较大值

@@ -26,7 +26,7 @@ public class LPCCarpetSettings {
     public static boolean furnaceClear = false;
     @Rule(categories = {FEATURE, LPC})
     public static FurnaceClearMode furnaceClearMode = FurnaceClearMode.SMELT_PASS;
-    @Rule(categories = {FEATURE, LPC}, options = {"-1", "0", "1"}, validators = {LoveGhastlingValidator.class})
+    @Rule(categories = {FEATURE, LPC}, options = {"-1", "0", "1"}, validators = LoveGhastlingValidator.class)
     public static int loveGhastling = 0;
     @Rule(categories = {FEATURE, LPC})
     public static boolean phantomSpawnMonsterCapped = false;
@@ -34,6 +34,10 @@ public class LPCCarpetSettings {
     public static int phantomSpawnMonsterCappedGlobalExtra = 64;
     @Rule(categories = {FEATURE, LPC}, strict = false, options = {"0", "8"})
     public static int phantomSpawnMonsterCappedLocalExtra = 8;
-    @Rule(categories = {FEATURE, LPC}, validators = {PhantomsCountAsMonsterValidator.class})
+    @Rule(categories = {FEATURE, LPC}, validators = PhantomsCountAsMonsterValidator.class)
     public static boolean phantomsCountAsMonster = true;
+    @Rule(categories = {FEATURE, LPC}, validators = PlayerListRulesValidator.class)
+    public static boolean playerListUsesUUID = true;
+    @Rule(categories = {FEATURE, LPC}, validators = PlayerListRulesValidator.class)
+    public static boolean playerListIgnoreCase = true;
 }

@@ -2,8 +2,11 @@ package lpcCarpetAddition.mixin.enchantment;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import lpcCarpetAddition.LPCCarpetSettings;
 import lpcCarpetAddition.commands.EnchantmentCommand;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,10 +32,14 @@ public abstract class AnvilScreenHandlerMixin extends ItemCombinerMenu {
         else return original.call(instance, componentType, o);
     }
     @WrapOperation(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/Enchantment;getMaxLevel()I"))
-    int wrapGetMaxLevel(Enchantment instance, Operation<Integer> original) {
+    int wrapGetMaxLevel(Enchantment instance, Operation<Integer> original, @Local(name = "entry") Object2IntMap.Entry<Holder<Enchantment>> entry, @Local(name = "current") int current) {
         int old = original.call(instance);
         if(!(player instanceof ServerPlayer serverPlayer)) return old;
-        else return EnchantmentCommand.LimitType.ANVIL.getLimitMap(serverPlayer).getOrDefault(instance, old);
+        else {
+            int configuredMaxLevel = EnchantmentCommand.LimitType.ANVIL.getLimitMap(serverPlayer).getOrDefault(instance, old);
+            if(LPCCarpetSettings.anvilKeepHigherLevels) return Math.max(configuredMaxLevel, Math.max(entry.getIntValue(), current));
+            else return configuredMaxLevel;
+        }
     }
     @ModifyConstant(method = "createResult", constant = {@Constant(intValue = 40), @Constant(intValue = 39)})
     int modifyAnvilLimit(int constant){

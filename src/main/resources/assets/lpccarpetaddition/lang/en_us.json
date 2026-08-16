@@ -3,6 +3,8 @@
   "carpet.rule.comparatorGetsRealTime.desc": "When enabled, comparators can obtain hexadecimal digits (corresponding to seconds) of UTC time from clock-containing item frames, determined by the clock's rotation angle",
   "carpet.rule.comparatorGetsRealTimeHigh32BlockId.name": "Comparator Retrieves UTC Time High 32-bit Block",
   "carpet.rule.comparatorGetsRealTimeHigh32BlockId.desc": "When UTC time retrieval is enabled, comparators will obtain corresponding hexadecimal digits from the high 32 bits of UTC time when detecting clock item frames through this specific block type",
+  "carpet.rule.anvilKeepHigherLevels.name": "Anvil Keeps Higher Levels",
+  "carpet.rule.anvilKeepHigherLevels.desc": "Default (off): the anvil enchantment level cap clamps the merged level, even if the material level or the level already on the item is higher. Enable so the anvil keeps levels that are higher than the cap, whether on the item or in the material.",
   "carpet.rule.disableAnvilPunishment.name": "Disable anvil punishment",
   "carpet.rule.disableAnvilPunishment.desc": "Disable anvil punishment",
   "carpet.rule.fakePlayerExperienceDuplicationFix.name": "Fake Player Experience Duplication Fix",

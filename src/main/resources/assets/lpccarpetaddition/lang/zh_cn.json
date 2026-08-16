@@ -3,6 +3,8 @@
 	"carpet.rule.comparatorGetsRealTime.desc": "开启后可以用比较器从放着钟的物品展示框中获取精确到秒的UTC时间的对应16进制位（以钟的旋转角度为准）",
 	"carpet.rule.comparatorGetsRealTimeHigh32BlockId.name": "比较器获取UTC时间高32位方块",
 	"carpet.rule.comparatorGetsRealTimeHigh32BlockId.desc": "开启比较器获取UTC时间后如果比较器是隔着这个方块检测放着钟物品展示框的话获取到的是高32位中的对应16进制位",
+	"carpet.rule.anvilKeepHigherLevels.name": "铁砧保留更高等级",
+	"carpet.rule.anvilKeepHigherLevels.desc": "关闭（默认）时，铁砧合并附魔的等级会被限制在铁砧附魔等级上限以内（未配置时按原版上限），即使材料上的等级或物品已有的等级更高也会被压低。开启后，铁砧将保留高于上限的已有等级或材料等级。",
 	"carpet.rule.disableAnvilPunishment.name": "禁用铁砧惩罚",
 	"carpet.rule.disableAnvilPunishment.desc": "禁用铁砧惩罚",
 	"carpet.rule.fakePlayerExperienceDuplicationFix.name": "假人刷经验修复",

@@ -11,6 +11,8 @@ public class LPCCarpetSettings {
     @Rule(categories = {FEATURE, LPC})
     public static boolean comparatorGetsRealTime = false;
     @Rule(categories = {FEATURE, LPC})
+    public static boolean anvilKeepHigherLevels = false;
+    @Rule(categories = {FEATURE, LPC})
     public static boolean disableAnvilPunishment;
     @Rule(categories = {BUGFIX, LPC})
     public static boolean fakePlayerExperienceDuplicationFix;

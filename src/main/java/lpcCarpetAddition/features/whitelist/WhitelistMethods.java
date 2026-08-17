@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.permissions.Permissions;
 import net.minecraft.server.players.NameAndId;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.server.players.UserWhiteList;
@@ -41,7 +42,7 @@ public class WhitelistMethods {
 	}
 
 	public static void updatePlayerGameMode(UserWhiteList whiteList, ServerPlayer player, @Nullable Boolean updateWhitelist) {
-		if(whiteList.isWhiteListed(player.nameAndId())) {
+		if(whiteList.isWhiteListed(player.nameAndId()) || player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
 			if(updateWhitelist == null || updateWhitelist) {
 				GameType gameType = LPCCarpetSettings.whitelistPlayerGameType.getGameType();
 				if(gameType != null) setGameModeAndFeedBack(player, gameType);

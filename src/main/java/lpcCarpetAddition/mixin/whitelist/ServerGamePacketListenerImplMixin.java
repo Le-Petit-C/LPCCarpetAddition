@@ -10,6 +10,8 @@ import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.InventoryMenu;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,7 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ServerGamePacketListenerImplMixin {
 	@Shadow public ServerPlayer player;
 
-	@Inject(method = "handleContainerSlotStateChanged", cancellable = true, at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
+	@Inject(method = "handleContainerSlotStateChanged", cancellable = true,
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
 	void onContainerSlotStateChanged(ServerboundContainerSlotStateChangedPacket packet, CallbackInfo ci) {
 		if (LPCCarpetSettings.rejectNonWhitelistedPlayersMoveContainerItem && WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
@@ -30,7 +33,8 @@ public class ServerGamePacketListenerImplMixin {
 		}
 	}
 
-	@WrapOperation(method = "handlePlayerAction", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;drop(Z)V"))
+	@WrapOperation(method = "handlePlayerAction",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;drop(Z)V"))
 	void onDropItem(ServerPlayer instance, boolean all, Operation<Void> original) {
 		if (LPCCarpetSettings.rejectNonWhitelistedPlayersDropOrPickItem && WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
@@ -39,14 +43,16 @@ public class ServerGamePacketListenerImplMixin {
 		else original.call(instance, all);
 	}
 
-	@WrapOperation(method = "handlePlayerAction", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayerGameMode;handleBlockBreakAction(Lnet/minecraft/core/BlockPos;Lnet/minecraft/network/protocol/game/ServerboundPlayerActionPacket$Action;Lnet/minecraft/core/Direction;II)V"))
+	@WrapOperation(method = "handlePlayerAction",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayerGameMode;handleBlockBreakAction(Lnet/minecraft/core/BlockPos;Lnet/minecraft/network/protocol/game/ServerboundPlayerActionPacket$Action;Lnet/minecraft/core/Direction;II)V"))
 	void onBreakBlock(ServerPlayerGameMode instance, BlockPos pos, ServerboundPlayerActionPacket.Action action, Direction direction, int maxY, int sequence, Operation<Void> original) {
 		if (LPCCarpetSettings.rejectNonWhitelistedPlayersAttackBlock && WhitelistMethods.notWhiteListed(player))
 			WhitelistMethods.sendNotWhitelistedMessage(player);
 		else original.call(instance, pos, action, direction, maxY, sequence);
 	}
 
-	@Inject(method = "handleUseItemOn", cancellable = true, at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
+	@Inject(method = "handleUseItemOn", cancellable = true,
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
 	void onInteractBlock(ServerboundUseItemOnPacket packet, CallbackInfo ci) {
 		if (LPCCarpetSettings.rejectNonWhitelistedPlayersInteractBlock && WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
@@ -56,7 +62,18 @@ public class ServerGamePacketListenerImplMixin {
 		}
 	}
 
-	@Inject(method = "handleAttack", cancellable = true, at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
+	@Inject(method = "handleUseItem", cancellable = true,
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
+	void onUseItem(ServerboundUseItemPacket packet, CallbackInfo ci) {
+		if (LPCCarpetSettings.rejectNonWhitelistedPlayersDropOrPickItem && player.getItemInHand(packet.getHand()).is(ItemTags.BUNDLES) && WhitelistMethods.notWhiteListed(player)) {
+			WhitelistMethods.sendNotWhitelistedMessage(player);
+			player.containerMenu.sendAllDataToRemote();
+			ci.cancel();
+		}
+	}
+
+	@Inject(method = "handleAttack", cancellable = true,
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
 	void onAttackEntity(ServerboundAttackPacket packet, CallbackInfo ci) {
 		if (LPCCarpetSettings.rejectNonWhitelistedPlayersAttackEntity && WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
@@ -64,7 +81,8 @@ public class ServerGamePacketListenerImplMixin {
 		}
 	}
 
-	@Inject(method = "handleInteract", cancellable = true, at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
+	@Inject(method = "handleInteract", cancellable = true,
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
 	void onInteractEntity(ServerboundInteractPacket packet, CallbackInfo ci) {
 		if (LPCCarpetSettings.rejectNonWhitelistedPlayersInteractEntity && WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
@@ -72,10 +90,22 @@ public class ServerGamePacketListenerImplMixin {
 		}
 	}
 
-	@Inject(method = "handleContainerClick", cancellable = true, at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
-	void onContainerClick(ServerboundContainerClickPacket packet, CallbackInfo ci) {
-		if (player.containerMenu.containerId != packet.containerId()) return;
+	@Inject(method = {"handleContainerClick", "handleBundleItemSelectedPacket"}, cancellable = true,
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
+	void onContainerClick(CallbackInfo ci) {
 		if (LPCCarpetSettings.rejectNonWhitelistedPlayersMoveContainerItem && WhitelistMethods.notWhiteListed(player) && !(player.containerMenu instanceof InventoryMenu)) {
+			WhitelistMethods.sendNotWhitelistedMessage(player);
+			player.containerMenu.sendAllDataToRemote();
+			ci.cancel();
+		}
+	}
+
+	@Inject(method = "handleContainerClick", cancellable = true,
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
+	void onThrowingItem(ServerboundContainerClickPacket packet, CallbackInfo ci) {
+		if (LPCCarpetSettings.rejectNonWhitelistedPlayersDropOrPickItem
+			&& (packet.containerInput() == ContainerInput.THROW || packet.slotNum() == -999)
+			&& WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
 			player.containerMenu.sendAllDataToRemote();
 			ci.cancel();

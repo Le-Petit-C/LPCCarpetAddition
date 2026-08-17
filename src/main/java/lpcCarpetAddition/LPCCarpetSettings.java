@@ -42,8 +42,22 @@ public class LPCCarpetSettings {
     public static boolean playerListUsesUUID = true;
     @Rule(categories = {FEATURE, LPC}, validators = PlayerListRulesValidator.class)
     public static boolean playerListIgnoreCase = true;
-    @Rule(categories = {FEATURE, LPC})
+    @Rule(categories = {FEATURE, LPC}, validators = NonWhitelistValidator.class)
     public static NonWhitelistedPlayerJoinMode nonWhitelistedPlayerGameType = NonWhitelistedPlayerJoinMode.REJECT;
-    @Rule(categories = {FEATURE, LPC})
+    @Rule(categories = {FEATURE, LPC}, validators = WhitelistValidator.class)
     public static WhitelistedPlayerGameMode whitelistPlayerGameType = WhitelistedPlayerGameMode.UNSET;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean rejectNonWhitelistedPlayersAttackBlock = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean rejectNonWhitelistedPlayersInteractBlock = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean rejectNonWhitelistedPlayersAttackEntity = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean rejectNonWhitelistedPlayersInteractEntity = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean rejectNonWhitelistedPlayersMoveContainerItem = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean rejectNonWhitelistedPlayersDropOrPickItem = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean rejectNonWhitelistedPlayersEditSign = false;
 }

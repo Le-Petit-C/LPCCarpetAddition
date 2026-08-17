@@ -1,4 +1,4 @@
-package lpcCarpetAddition.mixin.login;
+package lpcCarpetAddition.mixin.whitelist;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import lpcCarpetAddition.features.whitelist.WhitelistMethods;

@@ -1,4 +1,4 @@
-package lpcCarpetAddition.mixin.login;
+package lpcCarpetAddition.mixin.whitelist;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -35,6 +35,6 @@ public abstract class PlayerListMixin {
 
 	@Inject(method = "placeNewPlayer", at = @At("TAIL"))
 	void onPlaceNewPlayer(Connection connection, ServerPlayer player, CommonListenerCookie cookie, CallbackInfo ci) {
-		WhitelistMethods.updatePlayerGameMode(getWhiteList(), player);
+		WhitelistMethods.updatePlayerGameMode(getWhiteList(), player, null);
 	}
 }

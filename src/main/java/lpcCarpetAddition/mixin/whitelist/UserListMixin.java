@@ -1,4 +1,4 @@
-package lpcCarpetAddition.mixin.login;
+package lpcCarpetAddition.mixin.whitelist;
 
 import lpcCarpetAddition.LPCCarpetSettings;
 import net.minecraft.server.players.NameAndId;

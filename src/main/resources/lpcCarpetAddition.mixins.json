@@ -27,17 +27,20 @@
     "enchantment.EnchantmentHelperMixin",
     "enchantment.EnchantRandomlyFunctionMixin",
     "furnaceClear.FurnaceBlockEntityMixin",
-    "login.CachedUserNameToIdResolverMixin",
-    "login.MinecraftServerMixin",
-    "login.PlayerListMixin",
-    "login.UserListMixin",
-    "login.WhitelistCommandMixin",
     "loveGhastling.LootPoolSingletonContainerMixin",
     "loveGhastling.LootPoolSingletonContainerMixin$EntryBaseMixin",
     "phantom.NaturalSpawnerMixin",
     "phantom.PhantomSpawnerMixin",
     "utils.GameRulesMixin",
-    "utils.MinecraftServerMixin"
+    "utils.MinecraftServerMixin",
+    "whitelist.CachedUserNameToIdResolverMixin",
+    "whitelist.ItemEntityMixin",
+    "whitelist.MinecraftServerMixin",
+    "whitelist.PlayerListMixin",
+    "whitelist.ServerGamePacketListenerImplMixin",
+    "whitelist.ServerPlayerGameModeMixin",
+    "whitelist.UserListMixin",
+    "whitelist.WhitelistCommandMixin"
   ],
   "injectors": {
     "defaultRequire": 1

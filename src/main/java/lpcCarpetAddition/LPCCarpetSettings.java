@@ -1,6 +1,8 @@
 package lpcCarpetAddition;
 
 import carpet.api.settings.Rule;
+import lpcCarpetAddition.features.whitelist.NonWhitelistedPlayerJoinMode;
+import lpcCarpetAddition.features.whitelist.WhitelistedPlayerGameMode;
 import lpcCarpetAddition.validators.*;
 import lpcCarpetAddition.features.furnaceClear.FurnaceClearMode;
 
@@ -40,4 +42,8 @@ public class LPCCarpetSettings {
     public static boolean playerListUsesUUID = true;
     @Rule(categories = {FEATURE, LPC}, validators = PlayerListRulesValidator.class)
     public static boolean playerListIgnoreCase = true;
+    @Rule(categories = {FEATURE, LPC})
+    public static NonWhitelistedPlayerJoinMode nonWhitelistedPlayerGameType = NonWhitelistedPlayerJoinMode.REJECT;
+    @Rule(categories = {FEATURE, LPC})
+    public static WhitelistedPlayerGameMode whitelistPlayerGameType = WhitelistedPlayerGameMode.UNSET;
 }

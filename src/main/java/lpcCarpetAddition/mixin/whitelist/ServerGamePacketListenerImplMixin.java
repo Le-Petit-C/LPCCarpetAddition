@@ -55,6 +55,7 @@ public class ServerGamePacketListenerImplMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/network/protocol/PacketUtils;ensureRunningOnSameThread(Lnet/minecraft/network/protocol/Packet;Lnet/minecraft/network/PacketListener;Lnet/minecraft/server/level/ServerLevel;)V", shift = At.Shift.AFTER))
 	void onInteractBlock(ServerboundUseItemOnPacket packet, CallbackInfo ci) {
 		if (LPCCarpetSettings.rejectNonWhitelistedPlayersInteractBlock && WhitelistMethods.notWhiteListed(player)) {
+			if(!player.isShiftKeyDown() && WhitelistMethods.shouldAllowBlockInteraction(player.level(), packet.getHitResult())) return;
 			WhitelistMethods.sendNotWhitelistedMessage(player);
 			((ServerGamePacketListenerImpl)(Object)this).ackBlockChangesUpTo(packet.getSequence());
 			WhitelistMethods.sendBlockUpdatePackets(player, packet.getHitResult());

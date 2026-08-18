@@ -1,0 +1,22 @@
+§e/interactallow command usage:§r
+§f    /interactallow add §7<block-or-tag>
+§7        Add a block or tag to the allowed interaction list (prefix tags with #, e.g. #minecraft:buttons)
+§f    /interactallow remove §7<block-or-tag>
+§7        Remove a block or tag from the allowed interaction list (prefix tags with #)
+§f    /interactallow remove all
+§7        Clear the allowed interaction list
+§f    /interactallow list
+§7        Show the current allowed interaction list
+§f    /interactallow reload
+§7        Reload the allowed interaction list from file
+§f    /interactallow help
+§7        Show this help
+
+§eWhat it does:§r
+§f    When §arejectNonWhitelistedPlayersInteractBlock§r is enabled, non-whitelisted
+§f    players' block interaction is rejected. This list allows specific blocks or
+§f    tags to be allowed while §anot sneaking§r, so you can allow things on demand
+§f    without configuring a rule per block type.
+§f    Examples:
+§f        §7/interactallow add minecraft:chest§r    - allow chest block
+§f        §7/interactallow add #minecraft:buttons§r - allow button tag (all buttons)

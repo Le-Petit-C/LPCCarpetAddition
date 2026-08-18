@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lpcCarpetAddition.commands.EnchantmentCommand;
 import lpcCarpetAddition.commands.HeadCommand;
+import lpcCarpetAddition.commands.InteractAllowCommand;
 import lpcCarpetAddition.commands.QSetBlockCommand;
 import lpcCarpetAddition.loggers.EnderPearlLogger;
 import lpcCarpetAddition.loggers.LPCStandardLogger;
@@ -38,10 +39,13 @@ public class LPCCarpetAddition implements ModInitializer, CarpetExtension {
 		CarpetServer.manageExtension(this);
 		CommandRegistrationCallback.EVENT.register(EnchantmentCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(HeadCommand.getInstance());
+		CommandRegistrationCallback.EVENT.register(InteractAllowCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(QSetBlockCommand.getInstance());
 
 		ServerLifecycleEvents.SERVER_STARTED.register(EnchantmentCommand.getInstance());
 		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(EnchantmentCommand.getInstance());
+		ServerLifecycleEvents.SERVER_STARTED.register(InteractAllowCommand.getInstance());
+		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(InteractAllowCommand.getInstance());
 
 		LoveGhastlingValidator.init();
 		LOGGER.info("Initialized.");

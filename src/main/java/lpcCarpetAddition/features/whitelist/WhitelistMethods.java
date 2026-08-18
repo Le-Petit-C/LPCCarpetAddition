@@ -1,5 +1,6 @@
 package lpcCarpetAddition.features.whitelist;
 
+import lpcCarpetAddition.commands.InteractAllowCommand;
 import lpcCarpetAddition.LPCCarpetSettings;
 import lpcCarpetAddition.utils.CommandUtils;
 import net.minecraft.core.BlockPos;
@@ -16,6 +17,7 @@ import net.minecraft.server.players.NameAndId;
 import net.minecraft.server.players.PlayerList;
 import net.minecraft.server.players.UserWhiteList;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
@@ -78,5 +80,13 @@ public class WhitelistMethods {
 		Direction direction = hitResult.getDirection();
 		player.connection.send(new ClientboundBlockUpdatePacket(level, pos));
 		player.connection.send(new ClientboundBlockUpdatePacket(level, pos.relative(direction)));
+	}
+
+	/**
+	 * 判断非白名单玩家在方块交互被拒绝时，该方块是否属于允许交互列表。
+	 * 仅在调用方已确认 rejectNonWhitelistedPlayersInteractBlock 开启且玩家非白名单时才有意义。
+	 */
+	public static boolean shouldAllowBlockInteraction(Level level, BlockHitResult hitResult) {
+		return InteractAllowCommand.shouldAllow(level, hitResult.getBlockPos());
 	}
 }

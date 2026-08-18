@@ -1,0 +1,21 @@
+§e/interactallow 命令用途：§r
+§f    /interactallow add §7<方块或标签>
+§7        将方块或标签添加到允许交互列表（标签需加 # 前缀，如 #minecraft:buttons）
+§f    /interactallow remove §7<方块或标签>
+§7        从允许交互列表移除方块或标签（标签需加 # 前缀）
+§f    /interactallow remove all
+§7        清空允许交互列表
+§f    /interactallow list
+§7        查看当前允许交互列表
+§f    /interactallow reload
+§7        从文件重新加载允许交互列表
+§f    /interactallow help
+§7        显示本帮助
+
+§e作用说明：§r
+§f    开启 §arejectNonWhitelistedPlayersInteractBlock§r 后，非白名单玩家的方块交互会被拒绝。
+§f    本列表用于在§a非潜行§r状态下放行特定的方块或标签（如箱子、门、按钮、拉杆、音符盒等），
+§f    按需放行，无需为每种方块单独配置规则。
+§f    示例：
+§f        §7/interactallow add minecraft:chest§r    - 放行箱子方块
+§f        §7/interactallow add #minecraft:buttons§r - 放行按钮标签（含全部按钮）

@@ -1,6 +1,5 @@
 package lpcCarpetAddition.mixin.whitelist;
 
-import lpcCarpetAddition.LPCCarpetSettings;
 import lpcCarpetAddition.features.whitelist.WhitelistMethods;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,20 +17,24 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static lpcCarpetAddition.LPCCarpetSettings.*;
+
 @Mixin(ServerPlayerGameMode.class)
 public class ServerPlayerGameModeMixin {
 	@Final @Shadow protected ServerPlayer player;
 
 	@Inject(method = "handleBlockBreakAction", at = @At("HEAD"), cancellable = true)
 	void onHandleBlockBreakAction(CallbackInfo ci) {
-		if (LPCCarpetSettings.rejectNonWhitelistedPlayersAttackBlock && WhitelistMethods.notWhiteListed(player)) {
+		if (rejectNonWhitelistedPlayersAttackBlock && WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
 			ci.cancel();
 		}
 	}
 	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
 	void onHandleBlockInteract(ServerPlayer player, Level level, ItemStack itemStack, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
-		if (LPCCarpetSettings.rejectNonWhitelistedPlayersInteractBlock && WhitelistMethods.notWhiteListed(player)) {
+		if(!rejectNonWhitelistedPlayersInteractBlock) return;
+		if(!player.isShiftKeyDown() && WhitelistMethods.shouldAllowBlockInteraction(level, hitResult)) return;
+		if (WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
 			WhitelistMethods.sendBlockUpdatePackets(player, hitResult);
 			cir.setReturnValue(InteractionResult.FAIL);
@@ -39,7 +42,7 @@ public class ServerPlayerGameModeMixin {
 	}
 	@Inject(method = "destroyBlock", at = @At("HEAD"), cancellable = true)
 	void onHandleBlockBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		if (LPCCarpetSettings.rejectNonWhitelistedPlayersAttackBlock && WhitelistMethods.notWhiteListed(player)) {
+		if (rejectNonWhitelistedPlayersAttackBlock && WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
 			cir.setReturnValue(false);
 		}

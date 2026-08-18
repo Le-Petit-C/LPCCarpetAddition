@@ -5,6 +5,8 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
+import com.mojang.brigadier.suggestion.Suggestions;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import com.mojang.datafixers.util.Either;
 import lpcCarpetAddition.LPCCarpetAddition;
 import lpcCarpetAddition.utils.CommandUtils;
@@ -14,6 +16,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.ResourceOrTagKeyArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,6 +41,8 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 public class InteractAllowCommand implements CommandRegistrationCallback, ServerLifecycleEvents.ServerStarted, ServerLifecycleEvents.EndDataPackReload {
     @Override public void onServerStarted(@NonNull MinecraftServer server) { loadInteractAllow(server); }
@@ -106,6 +111,7 @@ public class InteractAllowCommand implements CommandRegistrationCallback, Server
             )
             .then(Commands.literal("remove")
                 .then(Commands.argument(blockArg, ResourceOrTagKeyArgument.resourceOrTagKey(Registries.BLOCK))
+                    .suggests(InteractAllowCommand::suggestRemove)
                     .executes(InteractAllowCommand::remove)
                 )
                 .then(Commands.literal("all")
@@ -246,5 +252,13 @@ public class InteractAllowCommand implements CommandRegistrationCallback, Server
         } catch (IOException ioException) {
             LPCCarpetAddition.LOGGER.warn("Failed to save interactAllow", ioException);
         }
+    }
+
+    private static CompletableFuture<Suggestions> suggestRemove(CommandContext<CommandSourceStack> c, SuggestionsBuilder p) {
+        var data = extraData.getExtraData(c);
+        return SharedSuggestionProvider.suggest(Stream.concat(
+            data.blocks.stream().map(block -> BuiltInRegistries.BLOCK.getKey(block).toString()),
+            data.tags.stream().map(TagKey::toString)
+        ), p);
     }
 }

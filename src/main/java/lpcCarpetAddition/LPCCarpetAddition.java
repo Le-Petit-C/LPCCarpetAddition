@@ -8,6 +8,7 @@ import lpcCarpetAddition.commands.EnchantmentCommand;
 import lpcCarpetAddition.commands.HeadCommand;
 import lpcCarpetAddition.commands.InteractAllowCommand;
 import lpcCarpetAddition.commands.QSetBlockCommand;
+import lpcCarpetAddition.commands.WhitelistPermitCommand;
 import lpcCarpetAddition.loggers.EnderPearlLogger;
 import lpcCarpetAddition.loggers.LPCStandardLogger;
 import lpcCarpetAddition.validators.LoveGhastlingValidator;
@@ -41,11 +42,14 @@ public class LPCCarpetAddition implements ModInitializer, CarpetExtension {
 		CommandRegistrationCallback.EVENT.register(HeadCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(InteractAllowCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(QSetBlockCommand.getInstance());
+		CommandRegistrationCallback.EVENT.register(WhitelistPermitCommand.getInstance());
 
 		ServerLifecycleEvents.SERVER_STARTED.register(EnchantmentCommand.getInstance());
 		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(EnchantmentCommand.getInstance());
 		ServerLifecycleEvents.SERVER_STARTED.register(InteractAllowCommand.getInstance());
 		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(InteractAllowCommand.getInstance());
+		ServerLifecycleEvents.SERVER_STARTED.register(WhitelistPermitCommand.getInstance());
+		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(WhitelistPermitCommand.getInstance());
 
 		LoveGhastlingValidator.init();
 		LOGGER.info("Initialized.");

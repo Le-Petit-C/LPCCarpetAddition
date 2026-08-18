@@ -77,5 +77,13 @@
   "carpet.lpc.command.enchantment.limit.type.anvil": "Anvil",
   "carpet.lpc.command.enchantment.limit.type.single_random_enchantment": "Single Random Enchantment",
   "carpet.lpc.command.enchantment.limit.type.multi_random_enchantments": "Multiple Random Enchantments",
-  "carpet.lpc.command.enchantment.limit.type.enchant_command": "Enchant Command"
+  "carpet.lpc.command.enchantment.limit.type.enchant_command": "Enchant Command",
+  "carpet.lpc.command.whitelistpermit.added": "Added %1$s to the whitelist command permit list",
+  "carpet.lpc.command.whitelistpermit.removed": "Removed %1$s from the whitelist command permit list",
+  "carpet.lpc.command.whitelistpermit.removedAll": "Removed all whitelist command permit entries",
+  "carpet.lpc.command.whitelistpermit.reloaded": "Reloaded the whitelist command permit list from file",
+  "carpet.lpc.command.whitelistpermit.listHeadline": "Current whitelist command permit entries",
+  "carpet.lpc.command.whitelistpermit.emptyList": "None",
+  "carpet.lpc.command.whitelistpermit.notInList": "%1$s is not in the whitelist command permit list",
+  "carpet.lpc.command.whitelistpermit.alreadyInList": "%1$s is already in the whitelist command permit list"
 }

@@ -1,0 +1,18 @@
+§e/whitelistpermit command usage:§r
+§f    /whitelistpermit add §7<player-name>
+§7        Add a player to the list allowed to run /whitelist
+§f    /whitelistpermit remove §7<player-name>
+§7        Remove a player from the list
+§f    /whitelistpermit remove all
+§7        Clear the list
+§f    /whitelistpermit list
+§7        Show the current list
+§f    /whitelistpermit reload
+§7        Reload the list from file
+§f    /whitelistpermit help
+§7        Show this help
+
+§eWhat it does:§r
+§f    Players in this list can run the /whitelist command to manage the whitelist
+§f    even if they are not OPs. OPs are always allowed to run /whitelist.
+§f    Config is stored at world/data/lpcCarpetAddition/whitelistPermit.json.

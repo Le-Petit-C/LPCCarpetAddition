@@ -25,7 +25,7 @@ import java.util.Collection;
 
 public class WhitelistMethods {
 	public static void scheduleUpdatePlayersGameMode(MinecraftServer server, @Nullable Boolean updateWhitelist) {
-		server.schedule(new TickTask(0, ()->updatePlayersGameMode(server, updateWhitelist)));
+		server.schedule(new TickTask(server.getTickCount(), ()->updatePlayersGameMode(server, updateWhitelist)));
 	}
 
 	public static void updatePlayersGameMode(MinecraftServer server, @Nullable Boolean updateWhitelist) {

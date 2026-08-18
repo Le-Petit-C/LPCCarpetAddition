@@ -1,0 +1,18 @@
+§e/whitelistpermit 命令用途：§r
+§f    /whitelistpermit add §7<玩家名>
+§7        将玩家添加到允许执行 /whitelist 指令的名单
+§f    /whitelistpermit remove §7<玩家名>
+§7        从名单中移除玩家
+§f    /whitelistpermit remove all
+§7        清空名单
+§f    /whitelistpermit list
+§7        查看当前名单
+§f    /whitelistpermit reload
+§7        从文件重新加载名单
+§f    /whitelistpermit help
+§7        显示本帮助
+
+§e作用说明：§r
+§f    名单中的玩家即使不是 OP，也能执行 /whitelist 指令管理白名单。
+§f    OP（管理员）不受此限制，始终可执行 /whitelist。
+§f    配置保存在 world/data/lpcCarpetAddition/whitelistPermit.json。

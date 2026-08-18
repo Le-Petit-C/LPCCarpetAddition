@@ -77,5 +77,13 @@
 	"carpet.lpc.command.enchantment.limit.type.anvil": "铁砧",
 	"carpet.lpc.command.enchantment.limit.type.single_random_enchantment": "单个随机附魔",
 	"carpet.lpc.command.enchantment.limit.type.multi_random_enchantments": "多个随机附魔",
-	"carpet.lpc.command.enchantment.limit.type.enchant_command": "附魔命令"
+	"carpet.lpc.command.enchantment.limit.type.enchant_command": "附魔命令",
+	"carpet.lpc.command.whitelistpermit.added": "已将 %1$s 添加到允许执行 whitelist 指令的名单",
+	"carpet.lpc.command.whitelistpermit.removed": "已将 %1$s 从允许执行 whitelist 指令的名单移除",
+	"carpet.lpc.command.whitelistpermit.removedAll": "已清空允许执行 whitelist 指令的名单",
+	"carpet.lpc.command.whitelistpermit.reloaded": "已从文件重新加载允许执行 whitelist 指令的名单",
+	"carpet.lpc.command.whitelistpermit.listHeadline": "当前允许执行 whitelist 指令的玩家",
+	"carpet.lpc.command.whitelistpermit.emptyList": "无",
+	"carpet.lpc.command.whitelistpermit.notInList": "%1$s 不在允许执行 whitelist 指令的名单中",
+	"carpet.lpc.command.whitelistpermit.alreadyInList": "%1$s 已在允许执行 whitelist 指令的名单中"
 }

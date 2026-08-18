@@ -48,7 +48,7 @@ public class LPCCarpetSettings {
     public static WhitelistedPlayerGameMode whitelistPlayerGameType = WhitelistedPlayerGameMode.UNSET;
     @Rule(categories = {FEATURE, LPC})
     public static boolean rejectNonWhitelistedPlayersAttackBlock = false;
-    @Rule(categories = {FEATURE, LPC})
+    @Rule(categories = {FEATURE, COMMAND, LPC})
     public static boolean rejectNonWhitelistedPlayersInteractBlock = false;
     @Rule(categories = {FEATURE, LPC})
     public static boolean rejectNonWhitelistedPlayersAttackEntity = false;

@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.Permissions;
@@ -25,7 +24,7 @@ import java.util.Collection;
 
 public class WhitelistMethods {
 	public static void scheduleUpdatePlayersGameMode(MinecraftServer server, @Nullable Boolean updateWhitelist) {
-		server.schedule(new TickTask(server.getTickCount(), ()->updatePlayersGameMode(server, updateWhitelist)));
+		server.schedule(server.wrapRunnable(()->updatePlayersGameMode(server, updateWhitelist)));
 	}
 
 	public static void updatePlayersGameMode(MinecraftServer server, @Nullable Boolean updateWhitelist) {

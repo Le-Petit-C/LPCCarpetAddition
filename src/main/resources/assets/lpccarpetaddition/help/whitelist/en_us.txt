@@ -1,0 +1,8 @@
+§e/whitelist refresh command usage:§r
+§f    /whitelist refresh
+§7    Re-resolves every entry in the whitelist and updates stale player names/UUIDs:
+§7      - Online mode: fetches the latest name/UUID from Mojang (honors playerListUsesUUID),
+§7        so entries of renamed players are updated.
+§7      - Offline mode (forceOfflineUUIDOnOfflineMode on): regenerates offline UUIDs
+§7        locally from player names, no network lookup.
+§7    Entries that fail to resolve are kept unchanged.

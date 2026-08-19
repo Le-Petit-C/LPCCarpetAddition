@@ -1,0 +1,8 @@
+§e/whitelist refresh 命令用途：§r
+§f    /whitelist refresh
+§7    重新解析白名单中的每一条目，并更新过时的玩家名/UUID：
+§7      - 在线模式：从 Mojang 获取最新玩家名/UUID（遵循 playerListUsesUUID），
+§7        已改名的玩家条目会被更新。
+§7      - 离线模式（forceOfflineUUIDOnOfflineMode 开启）：用玩家名本地重新生成
+§7        离线 UUID，不发网络查询。
+§7    解析失败的条目会原样保留。

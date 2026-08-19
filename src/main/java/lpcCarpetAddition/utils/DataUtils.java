@@ -1,19 +1,23 @@
 package lpcCarpetAddition.utils;
 
+import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.doubles.DoubleIterable;
 import it.unimi.dsi.fastutil.doubles.DoubleIterator;
+import lpcCarpetAddition.LPCCarpetSettings;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.players.NameAndId;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.UUID;
 
 @SuppressWarnings("unused")
 public class DataUtils {
@@ -60,5 +64,8 @@ public class DataUtils {
         public String getIdAsString(){
             return key.identifier().toString();
         }
+    }
+    public static Either<String, UUID> playerIdentifier(NameAndId id) {
+        return LPCCarpetSettings.playerListUsesUUID ? Either.right(id.id()) : Either.left(id.name());
     }
 }

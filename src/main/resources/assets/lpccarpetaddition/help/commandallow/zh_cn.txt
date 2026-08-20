@@ -1,0 +1,19 @@
+§e/commandallow 命令用途：§r
+§f    /commandallow add §7<指令名>
+§7        将指令添加到非白名单玩家允许执行的指令列表
+§f    /commandallow remove §7<指令名>
+§7        从列表中移除指令
+§f    /commandallow remove all
+§7        清空列表
+§f    /commandallow list
+§7        查看当前列表
+§f    /commandallow reload
+§7        从文件重新加载列表
+§f    /commandallow help
+§7        显示本帮助
+
+§e作用说明：§r
+§f    当 §arejectNonWhitelistedPlayerExecuteServerCommand§r 开启时，非白名单玩家
+§f    默认无法执行任何服务端指令。此列表中的根指令（如 help、list、seed）即使
+§f    非白名单玩家也能执行，其全部子指令/参数同样放行。
+§f    配置保存在 world/data/lpcCarpetAddition/commandAllow.json。

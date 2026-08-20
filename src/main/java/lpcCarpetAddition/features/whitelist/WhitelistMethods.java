@@ -11,16 +11,12 @@ import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.permissions.Permissions;
 import net.minecraft.server.players.NameAndId;
 import net.minecraft.server.players.PlayerList;
-import net.minecraft.server.players.UserWhiteList;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
-
-import java.util.Collection;
 
 public class WhitelistMethods {
 	public static void scheduleUpdatePlayersGameMode(MinecraftServer server, @Nullable Boolean updateWhitelist) {
@@ -29,29 +25,21 @@ public class WhitelistMethods {
 
 	public static void updatePlayersGameMode(MinecraftServer server, @Nullable Boolean updateWhitelist) {
 		PlayerList playerList = server.getPlayerList();
-		UserWhiteList whiteList = playerList.getWhiteList();
 		for(ServerPlayer player : server.getPlayerList().getPlayers())
-			updatePlayerGameMode(whiteList, player, updateWhitelist);
+			updatePlayerGameMode(playerList, player.nameAndId(), updateWhitelist);
 	}
 
-	public static void updatePlayersGameMode(MinecraftServer server, Collection<NameAndId> playersToUpdate) {
-		PlayerList playerList = server.getPlayerList();
-		UserWhiteList whiteList = playerList.getWhiteList();
-		for(NameAndId nameAndId : playersToUpdate)
-			if(playerList.getPlayer(nameAndId.id()) instanceof ServerPlayer player)
-				updatePlayerGameMode(whiteList, player, null);
-	}
-
-	public static void updatePlayerGameMode(UserWhiteList whiteList, ServerPlayer player, @Nullable Boolean updateWhitelist) {
-		if(whiteList.isWhiteListed(player.nameAndId()) || player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
+	public static void updatePlayerGameMode(PlayerList playerList, NameAndId player, @Nullable Boolean updateWhitelist) {
+		if(!(playerList.getPlayer(player.id()) instanceof ServerPlayer serverPlayer)) return;
+		if(playerList.isWhiteListed(player) || playerList.isOp(player)) {
 			if(updateWhitelist == null || updateWhitelist) {
 				GameType gameType = LPCCarpetSettings.whitelistedPlayerGameType.getGameType();
-				if(gameType != null) setGameModeAndFeedBack(player, gameType);
+				if(gameType != null) setGameModeAndFeedBack(serverPlayer, gameType);
 			}
 		} else {
 			if(updateWhitelist == null || !updateWhitelist) {
 				GameType gameType = LPCCarpetSettings.nonWhitelistedPlayerGameType.getTargetGameType();
-				if(gameType != null) setGameModeAndFeedBack(player, gameType);
+				if(gameType != null) setGameModeAndFeedBack(serverPlayer, gameType);
 			}
 		}
 	}

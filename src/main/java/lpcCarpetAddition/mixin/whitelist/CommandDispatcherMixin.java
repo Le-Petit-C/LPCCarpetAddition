@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import lpcCarpetAddition.LPCCarpetSettings;
+import lpcCarpetAddition.commands.CommandAllowCommand;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,13 +18,15 @@ import java.util.function.Predicate;
 public class CommandDispatcherMixin {
 	@Inject(method = "register", at = @At("HEAD"))
 	private static <S> void modifyInitRequirement(LiteralArgumentBuilder<S> command, CallbackInfoReturnable<LiteralCommandNode<S>> cir) {
+		String literal = command.getLiteral();
 		Predicate<S> oldRequirement = command.getRequirement();
 		command.requires(source -> {
 			if(!oldRequirement.test(source)) return false;
 			if(!LPCCarpetSettings.rejectNonWhitelistedPlayerExecuteServerCommand) return true;
 			if(!(source instanceof CommandSourceStack stack)) return true;
 			if(!(stack.getPlayer() instanceof Player player)) return true;
-			return stack.getServer().getPlayerList().isWhiteListed(player.nameAndId());
+			if(stack.getServer().getPlayerList().isWhiteListed(player.nameAndId())) return true;
+			return CommandAllowCommand.isAllowed(stack.getServer(), literal);
 		});
 	}
 }

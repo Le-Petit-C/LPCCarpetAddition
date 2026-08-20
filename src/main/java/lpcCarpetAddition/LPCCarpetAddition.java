@@ -4,6 +4,7 @@ import carpet.CarpetExtension;
 import carpet.CarpetServer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import lpcCarpetAddition.commands.CommandAllowCommand;
 import lpcCarpetAddition.commands.EnchantmentCommand;
 import lpcCarpetAddition.commands.HeadCommand;
 import lpcCarpetAddition.commands.InteractAllowCommand;
@@ -35,21 +36,24 @@ public class LPCCarpetAddition implements ModInitializer, CarpetExtension {
 		EnderPearlLogger::getInstance
 	};
 
+	private static <T extends CommandRegistrationCallback
+		& ServerLifecycleEvents.ServerStarted
+		& ServerLifecycleEvents.EndDataPackReload>
+	void registerDatapackUpdateCommand(T registrar) {
+		CommandRegistrationCallback.EVENT.register(registrar);
+		ServerLifecycleEvents.SERVER_STARTED.register(registrar);
+		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(registrar);
+	}
+
 	@Override public void onInitialize() {
 		LOGGER.info("Start initializing...");
 		CarpetServer.manageExtension(this);
-		CommandRegistrationCallback.EVENT.register(EnchantmentCommand.getInstance());
+		registerDatapackUpdateCommand(EnchantmentCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(HeadCommand.getInstance());
-		CommandRegistrationCallback.EVENT.register(InteractAllowCommand.getInstance());
+		registerDatapackUpdateCommand(InteractAllowCommand.getInstance());
 		CommandRegistrationCallback.EVENT.register(QSetBlockCommand.getInstance());
-		CommandRegistrationCallback.EVENT.register(WhitelistPermitCommand.getInstance());
-
-		ServerLifecycleEvents.SERVER_STARTED.register(EnchantmentCommand.getInstance());
-		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(EnchantmentCommand.getInstance());
-		ServerLifecycleEvents.SERVER_STARTED.register(InteractAllowCommand.getInstance());
-		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(InteractAllowCommand.getInstance());
-		ServerLifecycleEvents.SERVER_STARTED.register(WhitelistPermitCommand.getInstance());
-		ServerLifecycleEvents.END_DATA_PACK_RELOAD.register(WhitelistPermitCommand.getInstance());
+		registerDatapackUpdateCommand(WhitelistPermitCommand.getInstance());
+		registerDatapackUpdateCommand(CommandAllowCommand.getInstance());
 
 		LoveGhastlingValidator.init();
 		LOGGER.info("Initialized.");

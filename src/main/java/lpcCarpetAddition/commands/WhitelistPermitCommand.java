@@ -138,7 +138,7 @@ public class WhitelistPermitCommand implements CommandRegistrationCallback, Serv
         }
         if(changed) {
             saveWhitelistPermit(context);
-            refreshCommandTree(context.getSource().getServer(), players);
+            CommandUtils.refreshCommandTree(context.getSource().getServer(), players);
         }
         return players.size();
     }
@@ -154,7 +154,7 @@ public class WhitelistPermitCommand implements CommandRegistrationCallback, Serv
                 "carpet.lpc.command.whitelistpermit.removed", player.name()), true);
         }
         saveWhitelistPermit(context);
-        refreshCommandTree(context.getSource().getServer(), players);
+        CommandUtils.refreshCommandTree(context.getSource().getServer(), players);
         return players.size();
     }
 
@@ -164,7 +164,7 @@ public class WhitelistPermitCommand implements CommandRegistrationCallback, Serv
         data.players.clear();
         context.getSource().sendSuccess(() -> CommandUtils.fixTranslatedText("carpet.lpc.command.whitelistpermit.removedAll"), true);
         saveWhitelistPermit(context);
-        refreshCommandTree(context.getSource().getServer(), affected);
+        CommandUtils.refreshCommandTree(context.getSource().getServer(), affected);
         return 1;
     }
 
@@ -191,15 +191,6 @@ public class WhitelistPermitCommand implements CommandRegistrationCallback, Serv
     private static int help(CommandContext<CommandSourceStack> context) {
         context.getSource().sendSystemMessage(Component.literal(CommandUtils.loadHelpText("whitelistpermit")));
         return 1;
-    }
-
-    /** 名单变化后，向受影响的在线玩家重新发送命令树，让 /whitelist 的可见性（requires）及时更新。 */
-    private static void refreshCommandTree(MinecraftServer server, Collection<NameAndId> players) {
-        Commands commands = server.getCommands();
-        for(NameAndId playerId : players) {
-            ServerPlayer player = server.getPlayerList().getPlayerByName(playerId.name());
-            if(player != null) commands.sendCommands(player);
-        }
     }
 
     private static Path jsonPath(MinecraftServer server) {

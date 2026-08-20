@@ -54,7 +54,7 @@
   "carpet.rule.rejectNonWhitelistedPlayerEditSign.name": "Non-Whitelisted Cannot Edit Signs",
   "carpet.rule.rejectNonWhitelistedPlayerEditSign.desc": "When enabled, non-whitelisted players are prevented from editing signs.",
   "carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.name": "Non-Whitelisted Cannot Execute Server Commands",
-  "carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.desc": "When enabled, non-whitelisted players are prevented from executing server commands.",
+  "carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.desc": "When enabled, non-whitelisted players are prevented from executing server commands.\nUse /commandallow to configure commands that non-whitelisted players are still allowed to execute.\nSee /commandallow help for details.",
   "carpet.lpc.whitelist.notWhitelisted": "You are not on the whitelist yet, so you cannot do this.",
   "carpet.lpc.command.whitelist.refreshing": "Refreshing the whitelist...",
   "carpet.lpc.command.whitelist.refreshed": "Refreshed the whitelist: %1$s entries changed%2$s",
@@ -90,5 +90,14 @@
   "carpet.lpc.command.whitelistpermit.listHeadline": "Current whitelist command permit entries",
   "carpet.lpc.command.whitelistpermit.emptyList": "None",
   "carpet.lpc.command.whitelistpermit.notInList": "%1$s is not in the whitelist command permit list",
-  "carpet.lpc.command.whitelistpermit.alreadyInList": "%1$s is already in the whitelist command permit list"
+  "carpet.lpc.command.whitelistpermit.alreadyInList": "%1$s is already in the whitelist command permit list",
+  "carpet.lpc.command.commandallow.added": "Added %1$s to the command list allowed for non-whitelisted players",
+  "carpet.lpc.command.commandallow.removed": "Removed %1$s from the command list allowed for non-whitelisted players",
+  "carpet.lpc.command.commandallow.removedAll": "Removed all commands allowed for non-whitelisted players",
+  "carpet.lpc.command.commandallow.reloaded": "Reloaded the allowed command list from file",
+  "carpet.lpc.command.commandallow.listHeadline": "Commands currently allowed for non-whitelisted players",
+  "carpet.lpc.command.commandallow.emptyList": "None",
+  "carpet.lpc.command.commandallow.notFound": "Unknown command: %1$s",
+  "carpet.lpc.command.commandallow.notInList": "%1$s is not in the allowed command list",
+  "carpet.lpc.command.commandallow.alreadyInList": "%1$s is already in the allowed command list"
 }

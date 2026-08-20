@@ -5,21 +5,22 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import lpcCarpetAddition.LPCCarpetSettings;
 import lpcCarpetAddition.commands.WhitelistExtraCommand;
 import lpcCarpetAddition.commands.WhitelistPermitCommand;
 import lpcCarpetAddition.features.whitelist.WhitelistMethods;
 import lpcCarpetAddition.mixinUtils.AccessorUtils;
+import lpcCarpetAddition.utils.CommandUtils;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.server.commands.WhitelistCommand;
 import net.minecraft.server.players.NameAndId;
+import net.minecraft.server.players.StoredUserEntry;
+import net.minecraft.server.players.UserWhiteList;
+import net.minecraft.server.players.UserWhiteListEntry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.function.Predicate;
 
 @Mixin(WhitelistCommand.class)
@@ -32,12 +33,26 @@ public class WhitelistCommandMixin {
 	private static ArgumentBuilder<CommandSourceStack, LiteralArgumentBuilder<CommandSourceStack>> addExtraSubCommand(LiteralArgumentBuilder<CommandSourceStack> instance, Predicate<CommandSourceStack> predicate, Operation<ArgumentBuilder<CommandSourceStack, LiteralArgumentBuilder<CommandSourceStack>>> original) {
 		return original.call(WhitelistExtraCommand.addExtraCommand(AccessorUtils.asAccessor(instance).invokeGetThis()), predicate);
 	}
-	@Inject(method = {"addPlayers"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/UserWhiteList;add(Lnet/minecraft/server/players/UserWhiteListEntry;)Z", shift = At.Shift.AFTER))
-	private static void playerAddedToWhiteList(CommandSourceStack source, Collection<NameAndId> targets, CallbackInfoReturnable<Integer> cir, @Local(name = "target") NameAndId target) {
-		WhitelistMethods.updatePlayersGameMode(source.getServer(), List.of(target));
+	@WrapOperation(method = "addPlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/UserWhiteList;add(Lnet/minecraft/server/players/UserWhiteListEntry;)Z"))
+	private static boolean wrapAddPlayersAdd(
+		UserWhiteList instance, UserWhiteListEntry infos, Operation<Boolean> original,
+		@Local(name = "source") final CommandSourceStack source, @Local(name = "target") NameAndId target
+	) {
+		boolean res = original.call(instance, infos);
+		if(res && LPCCarpetSettings.rejectNonWhitelistedPlayerExecuteServerCommand)
+			CommandUtils.refreshCommandTree(source.getServer(), target);
+		WhitelistMethods.updatePlayerGameMode(source.getServer().getPlayerList(), target, null);
+		return res;
 	}
-	@Inject(method = {"removePlayers"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/UserWhiteList;remove(Lnet/minecraft/server/players/StoredUserEntry;)Z", shift = At.Shift.AFTER))
-	private static void playerRemovedFromWhiteList(CommandSourceStack source, Collection<NameAndId> targets, CallbackInfoReturnable<Integer> cir, @Local(name = "target") NameAndId target) {
-		WhitelistMethods.updatePlayersGameMode(source.getServer(), List.of(target));
+	@WrapOperation(method = "removePlayers", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/UserWhiteList;remove(Lnet/minecraft/server/players/StoredUserEntry;)Z"))
+	private static boolean wrapRemovePlayersRemove(
+		UserWhiteList instance, StoredUserEntry<UserWhiteListEntry> storedUserEntry, Operation<Boolean> original,
+		@Local(name = "source") final CommandSourceStack source, @Local(name = "target") NameAndId target
+	) {
+		boolean res = original.call(instance, storedUserEntry);
+		if(res && LPCCarpetSettings.rejectNonWhitelistedPlayerExecuteServerCommand)
+			CommandUtils.refreshCommandTree(source.getServer(), target);
+		WhitelistMethods.updatePlayerGameMode(source.getServer().getPlayerList(), target, null);
+		return res;
 	}
 }

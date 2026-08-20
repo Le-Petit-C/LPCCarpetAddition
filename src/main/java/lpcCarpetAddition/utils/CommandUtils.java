@@ -6,12 +6,15 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.NameAndId;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -20,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.function.Function;
 
 public class CommandUtils {
@@ -76,5 +80,18 @@ public class CommandUtils {
             LOGGER.warn("Failed to read help text for '{}/{}'", subCommand, lang, e);
             return null;
         }
+    }
+
+    /** 名单变化后，向受影响的在线玩家重新发送命令树，让 /whitelist 的可见性（requires）及时更新。 */
+    public static void refreshCommandTree(MinecraftServer server, Iterable<NameAndId> players) {
+        Commands commands = server.getCommands();
+        for(NameAndId playerInfo : players) {
+            ServerPlayer player = server.getPlayerList().getPlayer(playerInfo.id());
+            if(player != null) commands.sendCommands(player);
+        }
+    }
+
+    public static void refreshCommandTree(MinecraftServer server, NameAndId ...players) {
+        refreshCommandTree(server, List.of(players));
     }
 }

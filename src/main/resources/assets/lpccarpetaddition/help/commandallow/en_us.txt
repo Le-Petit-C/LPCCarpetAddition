@@ -1,0 +1,20 @@
+§e/commandallow command usage:§r
+§f    /commandallow add §7<command>
+§7        Add a command to the list allowed for non-whitelisted players
+§f    /commandallow remove §7<command>
+§7        Remove a command from the list
+§f    /commandallow remove all
+§7        Clear the list
+§f    /commandallow list
+§7        Show the current list
+§f    /commandallow reload
+§7        Reload the list from file
+§f    /commandallow help
+§7        Show this help
+
+§eWhat it does:§r
+§f    When §arejectNonWhitelistedPlayerExecuteServerCommand§r is enabled,
+§f    non-whitelisted players cannot execute any server command by default.
+§f    Root commands in this list (e.g. help, list, seed) remain executable
+§f    by non-whitelisted players, including their sub-commands and arguments.
+§f    Config is stored at world/data/lpcCarpetAddition/commandAllow.json.

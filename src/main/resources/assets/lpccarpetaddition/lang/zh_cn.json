@@ -54,7 +54,7 @@
 	"carpet.rule.rejectNonWhitelistedPlayerEditSign.name": "非白名单玩家禁止编辑告示牌",
 	"carpet.rule.rejectNonWhitelistedPlayerEditSign.desc": "开启后，非白名单玩家无法编辑告示牌。",
 	"carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.name": "非白名单玩家禁止执行服务端命令",
-	"carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.desc": "开启后，禁止非白名单玩家执行服务端命令",
+	"carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.desc": "开启后，禁止非白名单玩家执行服务端命令\n可用 /commandallow 配置非白名单玩家仍被允许执行的指令。\n详见 /commandallow help",
 	"carpet.lpc.whitelist.notWhitelisted": "你还没有加入白名单，无法执行此操作",
 	"carpet.lpc.command.whitelist.refreshing": "正在刷新白名单…",
 	"carpet.lpc.command.whitelist.refreshed": "已刷新白名单：%1$s 个条目发生变更%2$s",
@@ -90,5 +90,14 @@
 	"carpet.lpc.command.whitelistpermit.listHeadline": "当前允许执行 whitelist 指令的玩家",
 	"carpet.lpc.command.whitelistpermit.emptyList": "无",
 	"carpet.lpc.command.whitelistpermit.notInList": "%1$s 不在允许执行 whitelist 指令的名单中",
-	"carpet.lpc.command.whitelistpermit.alreadyInList": "%1$s 已在允许执行 whitelist 指令的名单中"
+	"carpet.lpc.command.whitelistpermit.alreadyInList": "%1$s 已在允许执行 whitelist 指令的名单中",
+	"carpet.lpc.command.commandallow.added": "已将 %1$s 添加到非白名单玩家允许执行的指令列表",
+	"carpet.lpc.command.commandallow.removed": "已将 %1$s 从非白名单玩家允许执行的指令列表移除",
+	"carpet.lpc.command.commandallow.removedAll": "已清空非白名单玩家允许执行的指令列表",
+	"carpet.lpc.command.commandallow.reloaded": "已从文件重新加载非白名单玩家允许执行的指令列表",
+	"carpet.lpc.command.commandallow.listHeadline": "当前非白名单玩家允许执行的指令",
+	"carpet.lpc.command.commandallow.emptyList": "无",
+	"carpet.lpc.command.commandallow.notFound": "未知的指令：%1$s",
+	"carpet.lpc.command.commandallow.notInList": "%1$s 不在允许执行的指令列表中",
+	"carpet.lpc.command.commandallow.alreadyInList": "%1$s 已在允许执行的指令列表中"
 }

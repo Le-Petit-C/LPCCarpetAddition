@@ -45,7 +45,7 @@ public class WhitelistMethods {
 	public static void updatePlayerGameMode(UserWhiteList whiteList, ServerPlayer player, @Nullable Boolean updateWhitelist) {
 		if(whiteList.isWhiteListed(player.nameAndId()) || player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
 			if(updateWhitelist == null || updateWhitelist) {
-				GameType gameType = LPCCarpetSettings.whitelistPlayerGameType.getGameType();
+				GameType gameType = LPCCarpetSettings.whitelistedPlayerGameType.getGameType();
 				if(gameType != null) setGameModeAndFeedBack(player, gameType);
 			}
 		} else {

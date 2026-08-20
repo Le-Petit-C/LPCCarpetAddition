@@ -15,7 +15,7 @@ public class ItemEntityMixin {
 	@ModifyExpressionValue(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;isClientSide()Z"))
 	boolean modifyItemPlayerTouch(boolean original, @Local(argsOnly = true) Player player) {
 		if(original) return true;
-		if (!LPCCarpetSettings.rejectNonWhitelistedPlayersDropOrPickItem) return false;
+		if (!LPCCarpetSettings.rejectNonWhitelistedPlayerDropOrPickItem) return false;
 		if (!(player instanceof ServerPlayer serverPlayer)) return false;
 		if (WhitelistMethods.notWhiteListed(serverPlayer)) {
 			WhitelistMethods.sendNotWhitelistedMessage(serverPlayer);

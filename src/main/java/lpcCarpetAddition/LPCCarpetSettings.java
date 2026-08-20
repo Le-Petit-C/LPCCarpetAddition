@@ -47,19 +47,21 @@ public class LPCCarpetSettings {
     @Rule(categories = {FEATURE, LPC}, validators = NonWhitelistValidator.class)
     public static NonWhitelistedPlayerJoinMode nonWhitelistedPlayerGameType = NonWhitelistedPlayerJoinMode.REJECT;
     @Rule(categories = {FEATURE, LPC}, validators = WhitelistValidator.class)
-    public static WhitelistedPlayerGameMode whitelistPlayerGameType = WhitelistedPlayerGameMode.UNSET;
+    public static WhitelistedPlayerGameMode whitelistedPlayerGameType = WhitelistedPlayerGameMode.UNSET;
     @Rule(categories = {FEATURE, LPC})
-    public static boolean rejectNonWhitelistedPlayersAttackBlock = false;
+    public static boolean rejectNonWhitelistedPlayerAttackBlock = false;
     @Rule(categories = {FEATURE, COMMAND, LPC})
-    public static boolean rejectNonWhitelistedPlayersInteractBlock = false;
+    public static boolean rejectNonWhitelistedPlayerInteractBlock = false;
     @Rule(categories = {FEATURE, LPC})
-    public static boolean rejectNonWhitelistedPlayersAttackEntity = false;
+    public static boolean rejectNonWhitelistedPlayerAttackEntity = false;
     @Rule(categories = {FEATURE, LPC})
-    public static boolean rejectNonWhitelistedPlayersInteractEntity = false;
+    public static boolean rejectNonWhitelistedPlayerInteractEntity = false;
     @Rule(categories = {FEATURE, LPC})
-    public static boolean rejectNonWhitelistedPlayersMoveContainerItem = false;
+    public static boolean rejectNonWhitelistedPlayerMoveContainerItem = false;
     @Rule(categories = {FEATURE, LPC})
-    public static boolean rejectNonWhitelistedPlayersDropOrPickItem = false;
+    public static boolean rejectNonWhitelistedPlayerDropOrPickItem = false;
     @Rule(categories = {FEATURE, LPC})
-    public static boolean rejectNonWhitelistedPlayersEditSign = false;
+    public static boolean rejectNonWhitelistedPlayerEditSign = false;
+    @Rule(categories = {FEATURE, COMMAND, LPC})
+    public static boolean rejectNonWhitelistedPlayerExecuteServerCommand = false;
 }

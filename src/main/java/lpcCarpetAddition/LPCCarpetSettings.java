@@ -64,4 +64,6 @@ public class LPCCarpetSettings {
     public static boolean rejectNonWhitelistedPlayerEditSign = false;
     @Rule(categories = {FEATURE, COMMAND, LPC})
     public static boolean rejectNonWhitelistedPlayerExecuteServerCommand = false;
+    @Rule(categories = {FEATURE, LPC})
+    public static boolean nonWhitelistRejectionIgnoreFakePlayers = false;
 }

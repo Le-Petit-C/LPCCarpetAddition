@@ -55,6 +55,8 @@
   "carpet.rule.rejectNonWhitelistedPlayerEditSign.desc": "When enabled, non-whitelisted players are prevented from editing signs.",
   "carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.name": "Non-Whitelisted Cannot Execute Server Commands",
   "carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.desc": "When enabled, non-whitelisted players are prevented from executing server commands.\nUse /commandallow to configure commands that non-whitelisted players are still allowed to execute.\nSee /commandallow help for details.",
+  "carpet.rule.nonWhitelistRejectionIgnoreFakePlayers.name": "Non-Whitelist Rejection Ignores Fake Players",
+  "carpet.rule.nonWhitelistRejectionIgnoreFakePlayers.desc": "When enabled, non-whitelisted fake players (Carpet bots) are ignored by the non-whitelisted rejection rules (interactions, dropping/picking items, executing commands, etc.) and are always allowed.",
   "carpet.lpc.whitelist.notWhitelisted": "You are not on the whitelist yet, so you cannot do this.",
   "carpet.lpc.command.whitelist.refreshing": "Refreshing the whitelist...",
   "carpet.lpc.command.whitelist.refreshed": "Refreshed the whitelist: %1$s entries changed%2$s",

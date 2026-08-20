@@ -55,6 +55,8 @@
 	"carpet.rule.rejectNonWhitelistedPlayerEditSign.desc": "开启后，非白名单玩家无法编辑告示牌。",
 	"carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.name": "非白名单玩家禁止执行服务端命令",
 	"carpet.rule.rejectNonWhitelistedPlayerExecuteServerCommand.desc": "开启后，禁止非白名单玩家执行服务端命令\n可用 /commandallow 配置非白名单玩家仍被允许执行的指令。\n详见 /commandallow help",
+	"carpet.rule.nonWhitelistRejectionIgnoreFakePlayers.name": "非白名单拒绝忽略假人",
+	"carpet.rule.nonWhitelistRejectionIgnoreFakePlayers.desc": "开启后，非白名单的假人（Carpet 假人）不会被非白名单拒绝规则限制（交互、丢弃/拾取、执行命令等），一律视为放行。",
 	"carpet.lpc.whitelist.notWhitelisted": "你还没有加入白名单，无法执行此操作",
 	"carpet.lpc.command.whitelist.refreshing": "正在刷新白名单…",
 	"carpet.lpc.command.whitelist.refreshed": "已刷新白名单：%1$s 个条目发生变更%2$s",

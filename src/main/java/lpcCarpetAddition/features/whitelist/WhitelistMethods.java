@@ -1,5 +1,6 @@
 package lpcCarpetAddition.features.whitelist;
 
+import carpet.patches.EntityPlayerMPFake;
 import lpcCarpetAddition.commands.InteractAllowCommand;
 import lpcCarpetAddition.LPCCarpetSettings;
 import lpcCarpetAddition.utils.CommandUtils;
@@ -13,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.NameAndId;
 import net.minecraft.server.players.PlayerList;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -31,7 +33,7 @@ public class WhitelistMethods {
 
 	public static void updatePlayerGameMode(PlayerList playerList, NameAndId player, @Nullable Boolean updateWhitelist) {
 		if(!(playerList.getPlayer(player.id()) instanceof ServerPlayer serverPlayer)) return;
-		if(playerList.isWhiteListed(player) || playerList.isOp(player)) {
+		if(playerList.isWhiteListed(player)) {
 			if(updateWhitelist == null || updateWhitelist) {
 				GameType gameType = LPCCarpetSettings.whitelistedPlayerGameType.getGameType();
 				if(gameType != null) setGameModeAndFeedBack(serverPlayer, gameType);
@@ -44,12 +46,16 @@ public class WhitelistMethods {
 		}
 	}
 
-	public static void sendNotWhitelistedMessage(ServerPlayer player) {
-		player.sendSystemMessage(CommandUtils.fixTranslatedText("carpet.lpc.whitelist.notWhitelisted").withColor(TextColor.DARK_RED), true);
+	public static void sendNotWhitelistedMessage(Player player) {
+		player.sendOverlayMessage(CommandUtils.fixTranslatedText("carpet.lpc.whitelist.notWhitelisted").withColor(TextColor.DARK_RED));
 	}
 
 	public static boolean notWhiteListed(ServerPlayer player) {
-		return !player.level().getServer().getPlayerList().isWhiteListed(player.nameAndId());
+		return notWhiteListed(player.level().getServer(), player);
+	}
+
+	public static boolean notWhiteListed(MinecraftServer server, Player player) {
+		return !server.getPlayerList().isWhiteListed(player.nameAndId());
 	}
 
 	public static void setGameModeAndFeedBack(ServerPlayer player, GameType newType) {
@@ -75,5 +81,30 @@ public class WhitelistMethods {
 	 */
 	public static boolean shouldAllowBlockInteraction(Level level, BlockHitResult hitResult) {
 		return InteractAllowCommand.shouldAllow(level, hitResult.getBlockPos());
+	}
+
+	public static boolean shouldReject(MinecraftServer server, Player player) {
+		NameAndId playerInfo = player.nameAndId();
+		PlayerList playerList = server.getPlayerList();
+		if(playerList.isWhiteListed(playerInfo)) return false;
+		if(!LPCCarpetSettings.nonWhitelistRejectionIgnoreFakePlayers) return true;
+		return !(player instanceof EntityPlayerMPFake);
+	}
+
+	public static boolean shouldReject(boolean rejectRuleValue, MinecraftServer server, Player player) {
+		if(!rejectRuleValue) return false;
+		else return shouldReject(server, player);
+	}
+
+	public static boolean shouldReject(boolean rejectRuleValue, ServerPlayer player) {
+		return shouldReject(rejectRuleValue, player.level().getServer(), player);
+	}
+
+	public static @Nullable MinecraftServer
+	notNullIfServerAndShouldReject(boolean rejectRuleValue, Player player) {
+		MinecraftServer server = player.level().getServer();
+		if(server == null) return null;
+		if(!rejectRuleValue) return server;
+		else return shouldReject(server, player) ? server : null;
 	}
 }

@@ -25,14 +25,14 @@ public class ServerPlayerGameModeMixin {
 
 	@Inject(method = "handleBlockBreakAction", at = @At("HEAD"), cancellable = true)
 	void onHandleBlockBreakAction(CallbackInfo ci) {
-		if (rejectNonWhitelistedPlayerAttackBlock && WhitelistMethods.notWhiteListed(player)) {
+		if (WhitelistMethods.shouldReject(rejectNonWhitelistedPlayerAttackBlock, player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
 			ci.cancel();
 		}
 	}
 	@Inject(method = "useItemOn", at = @At("HEAD"), cancellable = true)
 	void onHandleBlockInteract(ServerPlayer player, Level level, ItemStack itemStack, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<InteractionResult> cir) {
-		if(!rejectNonWhitelistedPlayerInteractBlock) return;
+		if(!WhitelistMethods.shouldReject(rejectNonWhitelistedPlayerInteractBlock, player)) return;
 		if(!player.isShiftKeyDown() && WhitelistMethods.shouldAllowBlockInteraction(level, hitResult)) return;
 		if (WhitelistMethods.notWhiteListed(player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
@@ -42,7 +42,7 @@ public class ServerPlayerGameModeMixin {
 	}
 	@Inject(method = "destroyBlock", at = @At("HEAD"), cancellable = true)
 	void onHandleBlockBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		if (rejectNonWhitelistedPlayerAttackBlock && WhitelistMethods.notWhiteListed(player)) {
+		if (WhitelistMethods.shouldReject(rejectNonWhitelistedPlayerAttackBlock, player)) {
 			WhitelistMethods.sendNotWhitelistedMessage(player);
 			cir.setReturnValue(false);
 		}

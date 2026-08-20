@@ -43,7 +43,7 @@ public class LPCCarpetSettings {
     @Rule(categories = {FEATURE, LPC}, validators = PlayerListRulesValidator.class)
     public static boolean playerListIgnoreCase = true;
     @Rule(categories = {FEATURE, LPC}, validators = PlayerListRulesValidator.class)
-    public static boolean forceOfflineUUIDOnOfflineMode = true;
+    public static boolean forceOfflineUUIDOnOfflineMode = false;
     @Rule(categories = {FEATURE, LPC}, validators = NonWhitelistValidator.class)
     public static NonWhitelistedPlayerJoinMode nonWhitelistedPlayerGameType = NonWhitelistedPlayerJoinMode.REJECT;
     @Rule(categories = {FEATURE, LPC}, validators = WhitelistValidator.class)

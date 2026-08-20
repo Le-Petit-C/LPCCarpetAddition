@@ -34,7 +34,7 @@
 	"carpet.rule.playerListIgnoreCase.name": "玩家名查找忽略大小写",
 	"carpet.rule.playerListIgnoreCase.desc": "开启（默认）时，按玩家名查找玩家忽略字母大小写；关闭后按名查找区分大小写。",
 	"carpet.rule.forceOfflineUUIDOnOfflineMode.name": "离线模式强制离线UUID",
-	"carpet.rule.forceOfflineUUIDOnOfflineMode.desc": "开启（默认）时，离线模式服务器上的所有玩家名解析（包括 /whitelist refresh）都用玩家名在本地生成离线 UUID，不向 Mojang 发网络请求，离线服上 refresh 也能秒完成。\n注意：切换本规则只影响之后的解析，已有白名单条目的 UUID 不会自动改变\n需要按新规则重新解析（如把正版 UUID 重算为离线 UUID）时，请执行 /whitelist refresh（详见 /whitelist refresh help）。",
+	"carpet.rule.forceOfflineUUIDOnOfflineMode.desc": "关闭（默认）时，离线模式服务器按原版行为通过 Mojang API 解析玩家名/UUID。开启后，所有玩家名解析（包括 /whitelist refresh）都在本地用玩家名生成离线 UUID，不向 Mojang 发网络请求，离线服上 refresh 也能秒完成。\n注意：切换本规则只影响之后的解析，已有白名单条目的 UUID 不会自动改变\n需要按新规则重新解析（如把正版 UUID 重算为离线 UUID）时，请执行 /whitelist refresh（详见 /whitelist refresh help）。",
 	"carpet.rule.nonWhitelistedPlayerGameType.name": "非白名单玩家游戏模式",
 	"carpet.rule.nonWhitelistedPlayerGameType.desc": "非白名单玩家加入时应用的游戏模式（而不是被踢出）。REJECT（默认）保持原版行为，踢出非白名单玩家。仅启用白名单并开启强制白名单时有效。",
 	"carpet.rule.whitelistedPlayerGameType.name": "白名单玩家游戏模式",
